@@ -133,27 +133,15 @@ public class SimpleCharacterControl : MonoBehaviour {
         float v = inputManager.charInput.z;
         float h = inputManager.charInput.x;
 
-        bool walk = Input.GetKey(KeyCode.LeftShift);
-
-        if (v < 0)
-        {
-            if (walk) { v *= m_backwardsWalkScale; }
-            else { v *= m_backwardRunScale; }
-        }
-        else if (walk)
-        {
-            v *= m_walkScale;
-        }
+       
 
         m_currentV = Mathf.Lerp(m_currentV, v, Time.deltaTime * m_interpolation);
         m_currentH = Mathf.Lerp(m_currentH, h, Time.deltaTime * m_interpolation);
-
-        transform.position += transform.forward * m_currentV * m_moveSpeed * Time.deltaTime;
         transform.Rotate(0, m_currentH * m_turnSpeed * Time.deltaTime, 0);
 
-        m_animator.SetFloat("MoveSpeed", m_currentV*m_moveSpeed);
+        transform.position += transform.forward * m_currentV * m_moveSpeed * Time.deltaTime;
 
-        JumpingAndLanding();
+       
     }
 
     private void DirectUpdate()
@@ -185,6 +173,8 @@ public class SimpleCharacterControl : MonoBehaviour {
             //transform.rotation = Quaternion.LookRotation(m_currentDirection);
             transform.position += m_currentDirection * m_moveSpeed * Time.deltaTime;
 
+            //transform.Rotate(0, m_currentH * m_turnSpeed * Time.deltaTime, 0);
+            //transform.position = new Vector3(Mathf.Clamp(-100f, 100f, transform.position.x), transform.position.y, Mathf.Clamp(-100f, 100f, transform.position.z));
             //m_animator.SetFloat("MoveSpeed", direction.magnitude*m_moveSpeed);
         }
 
