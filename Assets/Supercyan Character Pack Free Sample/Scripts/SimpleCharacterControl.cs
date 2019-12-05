@@ -160,7 +160,7 @@ public class SimpleCharacterControl : MonoBehaviour {
         m_currentV = Mathf.Lerp(m_currentV, v, Time.deltaTime * m_interpolation);
         m_currentH = Mathf.Lerp(m_currentH, h, Time.deltaTime * m_interpolation);
 
-        Vector3 direction = camera.forward * m_currentV + camera.right * m_currentH;
+        Vector3 direction = camera.up * m_currentV + camera.right * m_currentH;
 
         float directionLength = direction.magnitude;
         direction.y = 0;

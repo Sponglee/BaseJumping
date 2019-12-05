@@ -15,7 +15,7 @@ public class InputManager : Singleton<InputManager>
 
     private void Update()
     {
-         charInput = new Vector3(joystick.Horizontal, 0f, joystick.Vertical);
+         charInput = new Vector3(joystick.Horizontal, 0f,joystick.Vertical);
 
         //playerPivot.position = transform.position + Quaternion.AngleAxis(-20f, Vector3.up) * charInput * 20f;
     }

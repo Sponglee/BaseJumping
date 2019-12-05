@@ -33,12 +33,12 @@ public class InputCameraController : Singleton<InputCameraController>
             if (Input.GetMouseButtonDown(0))
             {
                 SetLiveCam("Speed");
-                model.localEulerAngles = new Vector3(140f, 90f, 0f);
+                model.localEulerAngles = new Vector3(140f, 0f, 0f);
             }
             else if (Input.GetMouseButtonUp(0))
             {
                 SetLiveCam("Slow");
-                model.localEulerAngles = new Vector3(80f, 90f, 0f);
+                model.localEulerAngles = new Vector3(80f, 0f, 0f);
             }
             //else
             //{
