@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-   
+    public Transform holder;
+
+    private void Update()
+    {
+        holder.Translate(transform.localPosition);
+    }
 
 }
