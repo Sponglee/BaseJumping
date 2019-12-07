@@ -10,13 +10,14 @@ public class InputManager : Singleton<InputManager>
     public Transform playerMover;
 
 
-    public float deltaX;
-    public float deltaZ;
+    public Vector3 delta;
+
 
     public Vector3 charInput;
     public Vector3 touchPos;
     public Rigidbody rb;
 
+    public Transform holder;
 
     private void Start()
     {
@@ -27,17 +28,23 @@ public class InputManager : Singleton<InputManager>
     {
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = 10;
-        touchPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+        touchPos = Camera.main.ScreenToWorldPoint(mousePos) /*- holder.position*/;
         if (Input.GetMouseButtonDown(0))
         {
-            deltaX = touchPos.x - playerMover.position.x;
-            deltaZ = touchPos.z - playerMover.position.z;
+            delta = (touchPos - playerMover.position);
+
+
+          
+
         }
         else if (Input.GetMouseButton(0))
         {
-            charInput = new Vector3(touchPos.x - deltaX, 0f, touchPos.z - deltaZ);
+            charInput = new Vector3(touchPos.x - delta.x, 0f, touchPos.z - delta.z);
             playerMover.position = charInput;
-            playerMover.position = new Vector3(Mathf.Clamp(playerMover.position.x, -0.7f, 0.7f), playerMover.position.y, Mathf.Clamp(playerMover.position.z, -1.3f, 0.3f));
+            playerMover.localPosition = new Vector3(Mathf.Clamp(playerMover.localPosition.x, -1f, 1f), 
+                playerMover.localPosition.y, 
+                Mathf.Clamp(playerMover.localPosition.z, -1.3f, 1.3f));
         }
         else if (Input.GetMouseButtonUp(0))
         {
