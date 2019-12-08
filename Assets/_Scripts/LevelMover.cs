@@ -10,7 +10,7 @@ public class LevelMover : Singleton<LevelMover>
     public Transform spawnPoint;
     public bool Moving = false;
 
-
+    public Vector3 offsetDir;
 
 
 

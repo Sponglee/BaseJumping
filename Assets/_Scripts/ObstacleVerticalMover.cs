@@ -17,7 +17,7 @@ public class ObstacleVerticalMover : MonoBehaviour
     {
         if(_levelMover.Moving)
         {
-            transform.Translate(Vector3.up * _levelMover.levelSpeed*speedModifier);
+            transform.Translate((Vector3.up + _levelMover.offsetDir) * _levelMover.levelSpeed*speedModifier);
         }
     }
 

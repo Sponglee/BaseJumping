@@ -10,18 +10,25 @@ public class InputManager : Singleton<InputManager>
     public Transform playerMover;
 
 
+
+
     public Vector3 delta;
-
-
     public Vector3 charInput;
     public Vector3 touchPos;
-    public Rigidbody rb;
 
-    public Transform holder;
+
+
+    private LevelMover _levelMover;
+
+    [Header("MovementControls")]
+    [SerializeField] private float sideSpeed = 1f;
+    [SerializeField] private float xBound = 1f;
+    [SerializeField] private float zBound = 1f;
+    [SerializeField] private float moveResistance = 0.2f;
 
     private void Start()
     {
-        rb = playerMover.GetComponent<Rigidbody>();
+        _levelMover = LevelMover.Instance;
     }
 
     private void Update()
@@ -40,11 +47,26 @@ public class InputManager : Singleton<InputManager>
         }
         else if (Input.GetMouseButton(0))
         {
+            //if (Mathf.Abs(playerMover.localPosition.x) >= 1.3f || Mathf.Abs(playerMover.localPosition.z) >= 1f)
+            //{
+            //    delta = (touchPos - playerMover.position);
+            //}
+
             charInput = new Vector3(touchPos.x - delta.x, 0f, touchPos.z - delta.z);
-            playerMover.position = charInput;
-            playerMover.localPosition = new Vector3(Mathf.Clamp(playerMover.localPosition.x, -1f, 1f), 
+            playerMover.localPosition = charInput;
+
+
+
+            playerMover.localPosition = new Vector3(Mathf.Clamp(playerMover.localPosition.x, -xBound, xBound), 
                 playerMover.localPosition.y, 
-                Mathf.Clamp(playerMover.localPosition.z, -1.3f, 1.3f));
+                Mathf.Clamp(playerMover.localPosition.z, -zBound, zBound));
+
+
+            if (Mathf.Abs(playerMover.localPosition.x) > moveResistance || Mathf.Abs(playerMover.localPosition.z) > 0.2f)
+            {
+                //Debug.Log("MOVE");
+                _levelMover.offsetDir = -(sideSpeed  * playerMover.localPosition);
+            }
         }
         else if (Input.GetMouseButtonUp(0))
         {
