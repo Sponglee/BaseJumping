@@ -6,6 +6,19 @@ public class ObstacleVerticalMover : MonoBehaviour
 {
     private LevelMover _levelMover;
     [SerializeField] private float speedModifier = 1f;
+    public float SpeedModifier
+    {
+        get
+        {
+            return speedModifier;
+        }
+
+        set
+        {
+            speedModifier = value;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +30,7 @@ public class ObstacleVerticalMover : MonoBehaviour
     {
         if(_levelMover.Moving)
         {
-            transform.Translate((Vector3.up + _levelMover.offsetDir) * _levelMover.levelSpeed*speedModifier);
+            transform.Translate((Vector3.up + _levelMover.offsetDir) * _levelMover.levelSpeed*SpeedModifier);
         }
     }
 

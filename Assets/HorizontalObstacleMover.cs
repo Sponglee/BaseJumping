@@ -12,14 +12,20 @@ public class HorizontalObstacleMover : MonoBehaviour
     [SerializeField] private bool _generateMoveSpeed = false;
     [SerializeField] private float _lowerSpeedLimit = 0f;
     [SerializeField] private float _upperSpeedLimit = 1f;
+
+    private LevelMover _levelMover;
+
     private void Start()
     {
         if (_generateMoveSpeed)
             _moveSpeed = Random.Range(_lowerSpeedLimit, _upperSpeedLimit);
+
+        _levelMover = LevelMover.Instance;
     }
     private void Update()
     {
-        transform.Translate(Vector3.forward * _moveSpeed);
+        if(_levelMover.Moving)
+            transform.Translate(Vector3.forward * _moveSpeed);
     }
 
 

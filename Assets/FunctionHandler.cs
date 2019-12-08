@@ -13,7 +13,7 @@ public class FunctionHandler : Singleton<FunctionHandler>
     public void RingCanvasEnabled()
     {
         RingCanvas.gameObject.SetActive(true);
-        uiCanvas.gameObject.SetActive(false);
+        //uiCanvas.gameObject.SetActive(false);
     }
 
 
@@ -25,7 +25,7 @@ public class FunctionHandler : Singleton<FunctionHandler>
         InputCameraController.Instance.slowCam = InputCameraController.Instance.parachuteSlowCam;
 
         RingCanvas.gameObject.SetActive(false);
-        uiCanvas.gameObject.SetActive(true);
+        //uiCanvas.gameObject.SetActive(true);
         ResetPlayerPosition();
     }
 

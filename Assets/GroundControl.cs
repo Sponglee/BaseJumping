@@ -13,6 +13,7 @@ public class GroundControl : MonoBehaviour
             InputCameraController.Instance.SetLiveCam("Finish");
             InputCameraController.Instance.parachuteSlowCam.transform.parent.gameObject.SetActive(false);
             transform.parent.position = Vector3.zero;
+            other.transform.position += Vector3.up * 0.5f;
             FunctionHandler.Instance.ResetPlayerPosition();
         }
     }
