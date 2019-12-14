@@ -5,17 +5,31 @@ using Cinemachine;
 
 public class InputCameraController : Singleton<InputCameraController>
 {
+
+    [SerializeField] private CinemachineVirtualCamera liveCam;
+    [Header("")]
+
     //DEBUG
     public CinemachineVirtualCamera normalCam;
-    public CinemachineVirtualCamera slowCam;
+  
     public CinemachineVirtualCamera speedCam;
+    public CinemachineVirtualCamera speedCam1;
+    public CinemachineVirtualCamera speedCam2;
+
+
     public CinemachineVirtualCamera startCam;
     public CinemachineVirtualCamera finishCam;
+
+
     public CinemachineVirtualCamera parachuteSpeedCam;
     public CinemachineVirtualCamera parachuteSlowCam;
 
     public Transform model;
 
+    [Header("Speed Control")]
+    public bool SpeedUpBool = false;
+    public float speedTimer = 0;
+    public float speedUpTime = 5f;
 
     private void Start()
     {
@@ -32,7 +46,7 @@ public class InputCameraController : Singleton<InputCameraController>
 
             if (Input.GetMouseButtonDown(0))
             {
-                SetLiveCam("Speed");
+                SetLiveCam("Normal");
                 model.localEulerAngles = new Vector3(140f, 0f, 0f);
             }
             else if (Input.GetMouseButtonUp(0))
@@ -59,38 +73,84 @@ public class InputCameraController : Singleton<InputCameraController>
         
     }
 
-
-
+   
     public void SetLiveCam(string name)
     {
-        CinemachineVirtualCamera targetCam;
+       
         switch (name)
         {
             case "Speed":
-                    targetCam = speedCam;
+                {
+
+                    liveCam = speedCam;
+                }
                 break;
-            case "Slow":
-                targetCam = slowCam;
+            case "Speed1":
+                {
+
+                    liveCam = speedCam1;
+                }
                 break;
+            case "Speed2":
+                {
+
+                    liveCam = speedCam2;
+                }
+                break;
+            case "Normal":
+                liveCam = normalCam;
+                break;
+         
             //case "Parachute":
             //    targetCam = parachuteSpeedCam;
                 //break;
             case "Finish":
-                targetCam = finishCam;
+                liveCam = finishCam;
                 break;
             default:
-                targetCam = null;
+                //liveCam = null;
                 break;
         }
 
-        if(targetCam != null)
+        if(liveCam != null)
         {
             foreach (var cam in GameObject.FindGameObjectsWithTag("Vcam"))
             {
                 cam.GetComponent<CinemachineVirtualCamera>().m_Priority = 1;
             }
-            targetCam.m_Priority = 99;
+            liveCam.m_Priority = 99;
         }
+    }
+
+
+    public void SpeedUpCamAction()
+    {
+        if (!SpeedUpBool)
+        {
+            SpeedUpBool = true;
+            SetLiveCam("Speed");
+
+
+            SetLiveCam("Normal");
+            SpeedUpBool = false;
+            speedTimer = 0f;
+
+            LevelMover.Instance.ResetSpeed();
+        }
+        else
+            speedTimer = 0;
+    }
+
+
+
+    public void ParachutePulled()
+    {
+        parachuteSpeedCam.transform.parent.gameObject.SetActive(true);
+        speedCam = parachuteSpeedCam;
+        
+        normalCam = parachuteSpeedCam;
+       
+
     }
 
 }

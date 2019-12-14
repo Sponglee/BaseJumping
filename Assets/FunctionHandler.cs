@@ -20,13 +20,13 @@ public class FunctionHandler : Singleton<FunctionHandler>
     public void PullRing()
     {
         
-        InputCameraController.Instance.parachuteSpeedCam.transform.parent.gameObject.SetActive(true);
-        InputCameraController.Instance.speedCam = InputCameraController.Instance.parachuteSpeedCam;
-        InputCameraController.Instance.slowCam = InputCameraController.Instance.parachuteSlowCam;
+       
 
         RingCanvas.gameObject.SetActive(false);
         //uiCanvas.gameObject.SetActive(true);
         ResetPlayerPosition();
+        InputCameraController.Instance.ParachutePulled();
+        LevelMover.Instance.ResetSpeed();
     }
 
 

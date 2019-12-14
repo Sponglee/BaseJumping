@@ -33,45 +33,49 @@ public class InputManager : Singleton<InputManager>
 
     private void Update()
     {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 10;
-
-        touchPos = Camera.main.ScreenToWorldPoint(mousePos) /*- holder.position*/;
-        if (Input.GetMouseButtonDown(0))
+        if (_levelMover.Moving)
         {
-            delta = (touchPos - playerMover.position);
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = 10;
 
-
-          
-
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            //if (Mathf.Abs(playerMover.localPosition.x) >= 1.3f || Mathf.Abs(playerMover.localPosition.z) >= 1f)
-            //{
-            //    delta = (touchPos - playerMover.position);
-            //}
-
-            charInput = new Vector3(touchPos.x - delta.x, 0f, touchPos.z - delta.z);
-            playerMover.localPosition = charInput;
-
-
-
-            playerMover.localPosition = new Vector3(Mathf.Clamp(playerMover.localPosition.x, -xBound, xBound), 
-                playerMover.localPosition.y, 
-                Mathf.Clamp(playerMover.localPosition.z, -zBound, zBound));
-
-
-            if (Mathf.Abs(playerMover.localPosition.x) > moveResistance || Mathf.Abs(playerMover.localPosition.z) > 0.2f)
+            touchPos = Camera.main.ScreenToWorldPoint(mousePos) /*- holder.position*/;
+            if (Input.GetMouseButtonDown(0))
             {
-                //Debug.Log("MOVE");
-                _levelMover.offsetDir = -(sideSpeed  * playerMover.localPosition);
+                delta = (touchPos - playerMover.position);
+
+
+
+
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                //if (Mathf.Abs(playerMover.localPosition.x) >= 1.3f || Mathf.Abs(playerMover.localPosition.z) >= 1f)
+                //{
+                //    delta = (touchPos - playerMover.position);
+                //}
+
+                charInput = new Vector3(touchPos.x - delta.x, 0f, touchPos.z - delta.z);
+                playerMover.localPosition = charInput;
+
+
+
+                playerMover.localPosition = new Vector3(Mathf.Clamp(playerMover.localPosition.x, -xBound, xBound),
+                    playerMover.localPosition.y,
+                    Mathf.Clamp(playerMover.localPosition.z, -zBound, zBound));
+
+
+                if (Mathf.Abs(playerMover.localPosition.x) > moveResistance || Mathf.Abs(playerMover.localPosition.z) > 0.2f)
+                {
+                    //Debug.Log("MOVE");
+                    _levelMover.offsetDir = -(sideSpeed * playerMover.localPosition);
+                }
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                //charInput = Vector3.zero;
             }
         }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            //charInput = Vector3.zero;
-        }
+       
 
 
     }
