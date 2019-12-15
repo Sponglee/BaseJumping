@@ -43,7 +43,8 @@ public class ObstacleVerticalMover : MonoBehaviour
             Destroy(gameObject);
 
             //DEBUG SPAWN
-            _levelMover.SpawnSegment();
+            if(!_levelMover.ParachuteBool)
+                _levelMover.SpawnSegment();
 
             //Invoke spawn event in _levelMover
         }

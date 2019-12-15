@@ -57,12 +57,14 @@ public class LevelMover : Singleton<LevelMover>
 
     public Transform spawnPoint;
     public Transform groundHolder;
+    public Transform groundTarget;
+
     private float groundStartAltitude;
 
     public Slider altmeter;
 
     public bool Moving = false;
-
+    public bool ParachuteBool = false;
     public Vector3 offsetDir;
 
 
