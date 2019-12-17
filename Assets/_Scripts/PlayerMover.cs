@@ -55,10 +55,13 @@ public class PlayerMover : MonoBehaviour
                 _levelMover.offsetDir = -(sideSpeed * charachterTransform.localPosition);
             }
 
-            ////Orientate model
-            //Vector3 diff = -((Camera.main.transform.position - charachterTransform.position).normalized + _levelMover.offsetDir.normalized);
-            //model.rotation = Quaternion.LookRotation(diff, model.up);
-            
+
+            //Orientate model
+            Vector3 diff = -((Camera.main.transform.position + _levelMover.offsetDir*10f) /*+ _levelMover.offsetDir.normalized*/);
+
+            model.LookAt(model.transform.position + diff, Vector3.up - new Vector3(0,_levelMover.offsetDir.y,-Mathf.Abs(_levelMover.offsetDir.z)).normalized);
+
+
         }
     }
 }

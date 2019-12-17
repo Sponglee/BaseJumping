@@ -35,7 +35,7 @@ public class FunctionHandler : Singleton<FunctionHandler>
         playButton.SetActive(false);
         InputCameraController.Instance.SetLiveCam("Speed");
         LevelMover.Instance.Moving = true;
-        model.localEulerAngles = new Vector3(90f, 90f, 0f);
+        //model.localEulerAngles = new Vector3(90f, 90f, 0f);
     }
 
     public void RestartLevel()
@@ -45,7 +45,7 @@ public class FunctionHandler : Singleton<FunctionHandler>
 
     public void ResetPlayerPosition()
     {
-        model.localEulerAngles = Vector3.zero;
+        model.localEulerAngles = new Vector3(-90f,transform.eulerAngles.y,0);
     }
 
 }
