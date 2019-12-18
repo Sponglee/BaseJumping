@@ -10,6 +10,7 @@ public class PlayerMover : MonoBehaviour
     private LevelMover _levelMover;
 
     [Header("MovementControls")]
+    [SerializeField] private float rotationSpeed = 1f;
     [SerializeField] private float sideSpeed = 1f;
     [SerializeField] private float xBound = 1f;
     [SerializeField] private float zBound = 1f;
@@ -57,10 +58,12 @@ public class PlayerMover : MonoBehaviour
 
 
             //Orientate model
-            Vector3 diff = -((Camera.main.transform.position + _levelMover.offsetDir*10f) /*+ _levelMover.offsetDir.normalized*/);
+            Vector3 diff = -((Camera.main.transform.position + _levelMover.offsetDir * 10f) /*+ _levelMover.offsetDir.normalized*/);
+            Debug.DrawLine(transform.position, transform.position + diff, Color.red);
 
-            model.LookAt(model.transform.position + diff, Vector3.up - new Vector3(0,_levelMover.offsetDir.y,-Mathf.Abs(_levelMover.offsetDir.z)).normalized);
 
+            Quaternion currentRotation = Quaternion.LookRotation(model.transform.position + new Vector3(diff.x, diff.y, diff.z), Vector3.forward - new Vector3(_levelMover.offsetDir.x, _levelMover.offsetDir.y, -Mathf.Abs(_levelMover.offsetDir.z)).normalized);
+            model.rotation = Quaternion.Lerp(model.rotation, currentRotation, rotationSpeed * Time.deltaTime);
 
         }
     }

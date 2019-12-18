@@ -79,7 +79,7 @@ public class LevelMover : Singleton<LevelMover>
        
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if(Moving)
             UpdateAltmeter();
@@ -107,7 +107,7 @@ public class LevelMover : Singleton<LevelMover>
 
     public void SpeedIncrease()
     {
-        levelSpeed += 0.1f;
+        levelSpeed += 0.2f;
         LevelSpeed = Mathf.Clamp(levelSpeed, startSpeed, maxSpeed);
     }
 
