@@ -46,7 +46,10 @@ public class AltmeterBehaviour : MonoBehaviour
                 yellowZone.GetComponent<Animator>().SetBool("Alert", toggle);
                 break;
             case "Red":
-                redZone.GetComponent<Animator>().SetBool("Alert",toggle);
+                {
+                    if(!LevelMover.instance.ParachuteBool)
+                        redZone.GetComponent<Animator>().SetBool("Alert",toggle);
+                }
                 break;
             default:
                 break;

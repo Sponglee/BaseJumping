@@ -11,16 +11,17 @@ public class GroundControl : MonoBehaviour
             if (LevelMover.Instance.ParachuteBool)
             {
                 LevelMover.Instance.ResetPosition();
-
+                FunctionHandler.Instance.LevelComplete("LEVEL COMPLETE");
             }
             else
             {
                 LevelMover.Instance.Moving = false;
                 InputCameraController.Instance.SetLiveCam("Finish");
                 GameManager.Instance.CollidedWithEarth();
+                FunctionHandler.Instance.LevelComplete("GAME OVER");
+
             }
 
-                FunctionHandler.Instance.LevelComplete();
 
         }
     }

@@ -8,11 +8,11 @@ public class PlayerScoreUI : ScoreUI
     void Start()
     {
         ScoreSystem.uiUpdateEvent.AddListener(UpdateUI);
-        targetText.text = ScoreSystem.playerScore.ToString();
+        targetText.text = ScoreSystem.PlayerScore.ToString();
     }
 
-    public override void UpdateUI()
+    public override void UpdateUI(int target)
     {
-        targetText.text = ScoreSystem.playerScore.ToString();
+        targetText.text = ScoreSystem.PlayerScore.ToString();
     }
 }

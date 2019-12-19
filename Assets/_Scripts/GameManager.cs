@@ -19,6 +19,9 @@ public class GameManager : Singleton<GameManager>
     {
         GoalBehaviour.goalReached.AddListener(GoalTriggered);
         ParachuteTrigger.parachuteTriggerEvent.AddListener(ParachuteZone);
+
+        ScoreSystem.ResetScores();
+       
     }
 
    
@@ -37,6 +40,8 @@ public class GameManager : Singleton<GameManager>
     {
         Instantiate(poofPref, Vector3.up, Quaternion.identity);
         Destroy(PlayerMover.Instance.gameObject);
+
+        ScoreSystem.ResetMultiplier();
     }
 
     public void ParachuteZone(bool RedZone)
@@ -45,11 +50,16 @@ public class GameManager : Singleton<GameManager>
         {
             altmeter.AlarmGlowToggle("Yellow", true);
             StartCoroutine(StopMultiplier());
+            StartCoroutine(InputCameraController.Instance.StopParachuteZoom());
         }
         else
         {
             StopCoroutine(GameManager.Instance.StopMultiplier());
-            ScoreSystem.ResetMultiplier();
+
+            ScoreSystem.multReset.Invoke();
+
+
+           
 
             altmeter.AlarmGlowToggle("Red", true);
             altmeter.AlarmGlowToggle("Yellow", false);
@@ -65,9 +75,10 @@ public class GameManager : Singleton<GameManager>
         while (LevelMover.instance.YellowZoneBool)
         {
             ScoreSystem.IncreaseMultiplier();
+            
             yield return new WaitForSeconds(multiplierCoolDown);
         }
     }
 
-
+   
 }

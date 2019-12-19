@@ -13,7 +13,7 @@ public  class ScoreUI : MonoBehaviour
 
 
     // Update is called once per frame
-    public virtual void UpdateUI()
+    public virtual void UpdateUI(int target)
     {
 
     }

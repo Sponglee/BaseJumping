@@ -30,7 +30,7 @@ public class InputCameraController : Singleton<InputCameraController>
     public bool SpeedUpBool = false;
     public float speedTimer = 0;
     public float speedUpTime = 5f;
-
+    public float cameraZoomRate = 10f;
     private void Start()
     {
         SetLiveCam("Start");
@@ -40,11 +40,11 @@ public class InputCameraController : Singleton<InputCameraController>
     void Update()
     {
            
-        if(LevelMover.Instance.Moving)
+        if(LevelMover.instance.Moving && !LevelMover.instance.ParachuteBool)
         {
 
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) )
             {
                 SetLiveCam("Normal");
                 //model.localEulerAngles = new Vector3(140f, 0f, 0f);
@@ -161,4 +161,17 @@ public class InputCameraController : Singleton<InputCameraController>
 
     }
 
+
+    public IEnumerator StopParachuteZoom()
+    {
+        float lens = liveCam.m_Lens.FieldOfView;
+        float zoom = liveCam.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance;
+        while (liveCam != null && !LevelMover.instance.ParachuteBool)
+        {
+            lens += Time.deltaTime* cameraZoomRate;
+            liveCam.m_Lens.FieldOfView = Mathf.Clamp(lens, 0,130);
+            //liveCam.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = Mathf.Clamp(zoom-Time.deltaTime*cameraZoomRate,1,8);
+            yield return new WaitForEndOfFrame();
+        }
+    }
 }
