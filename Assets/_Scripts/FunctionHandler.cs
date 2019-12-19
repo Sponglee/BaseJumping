@@ -18,6 +18,7 @@ public class FunctionHandler : Singleton<FunctionHandler>
         switch (targetName)
         {
             case "UI":
+                target = uiCanvas;
                 break;
             case "Ring":
                 target = ringCanvas;
