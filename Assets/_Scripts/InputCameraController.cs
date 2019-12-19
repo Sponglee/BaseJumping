@@ -97,6 +97,12 @@ public class InputCameraController : Singleton<InputCameraController>
                     liveCam = speedCam2;
                 }
                 break;
+            case "Start":
+                {
+
+                    liveCam = startCam;
+                }
+                break;
             case "Normal":
                 liveCam = normalCam;
                 break;
@@ -148,7 +154,7 @@ public class InputCameraController : Singleton<InputCameraController>
         parachuteSpeedCam.m_Follow.gameObject.SetActive(true);
         speedCam = parachuteSpeedCam;
         normalCam = parachuteSpeedCam;
-        SetLiveCam("Normal");
+        SetLiveCam("Start");
         //DEBUG
         LevelMover.Instance.ParachuteBool = true;
 

@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class LevelMover : Singleton<LevelMover>
 {
+    public static LevelMover instance;
+
+
     [Header("Speed Values")]
     public float startSpeed = 1f;
     public float maxSpeed = 1.5f;
@@ -74,6 +77,8 @@ public class LevelMover : Singleton<LevelMover>
 
     private void Start()
     {
+        instance = Instance;
+
         groundStartAltitude = groundHolder.transform.position.y;
         for (int i = 0; i < levelLayers; i++)
         {
@@ -118,5 +123,18 @@ public class LevelMover : Singleton<LevelMover>
     {
         levelSpeed = 0.5f;
         startSpeed = 0.5f;
+    }
+
+
+
+    public void ResetPosition()
+    {
+        Debug.Log("REE");
+        LevelMover.Instance.Moving = false;
+        InputCameraController.Instance.SetLiveCam("Finish");
+        InputCameraController.Instance.parachuteSlowCam.m_Follow.gameObject.SetActive(false);
+        FunctionHandler.Instance.ResetPlayerPosition();
+        groundHolder.position = new Vector3(groundHolder.position.x,PlayerMover.Instance.charachterTransform.position.y, groundHolder.position.z);
+        //other.transform.position += Vector3.up * 0.5f;
     }
 }

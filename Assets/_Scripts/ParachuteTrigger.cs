@@ -35,7 +35,7 @@ public class ParachuteTrigger : MonoBehaviour
         {
             if(!IsRedZone)
             {
-                LevelMover.Instance.YellowZoneBool = true;
+                LevelMover.instance.YellowZoneBool = true;
                 Debug.Log("RE");
                 //DEBUG 
                 ground.enabled = true;
@@ -47,7 +47,10 @@ public class ParachuteTrigger : MonoBehaviour
             }
             else
             {
+                LevelMover.instance.YellowZoneBool = false;
+                LevelMover.instance.RedZoneBool = true;
                 parachuteTriggerEvent.Invoke(IsRedZone);
+
 
             }
         }

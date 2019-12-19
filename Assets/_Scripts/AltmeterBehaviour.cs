@@ -15,13 +15,13 @@ public class AltmeterBehaviour : MonoBehaviour
     private void Start()
     {
         SetUpZones();
+        transform.parent.gameObject.SetActive(false);
     }
 
     public void SetUpZones()
     {
         GameObject[] triggers = GameObject.FindGameObjectsWithTag("ParachuteTrigger");
-
-                Debug.Log("S " + triggers.Length);
+                       
         foreach (var item in triggers)
         {
             if (item.GetComponent<ParachuteTrigger>().IsRedZone)

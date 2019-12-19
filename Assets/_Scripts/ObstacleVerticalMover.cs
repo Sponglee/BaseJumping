@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObstacleVerticalMover : MonoBehaviour
 {
-    private LevelMover _levelMover;
+    //private LevelMover LevelMover._levelMover;
     [SerializeField] private float speedModifier = 1f;
     public float SpeedModifier
     {
@@ -19,18 +19,14 @@ public class ObstacleVerticalMover : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        _levelMover = LevelMover.Instance;   
-    }
+   
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(_levelMover.Moving)
+        if(LevelMover.instance.Moving)
         {
-            transform.Translate((Vector3.up + _levelMover.offsetDir) * _levelMover.LevelSpeed*SpeedModifier);
+            transform.Translate((Vector3.up + LevelMover.instance.offsetDir) * LevelMover.instance.LevelSpeed*SpeedModifier);
         }
     }
 
@@ -43,10 +39,10 @@ public class ObstacleVerticalMover : MonoBehaviour
             Destroy(gameObject);
 
             //DEBUG SPAWN
-            if(!_levelMover.YellowZoneBool)
-                _levelMover.SpawnSegment();
+            if(!LevelMover.instance.YellowZoneBool)
+                LevelMover.instance.SpawnSegment();
 
-            //Invoke spawn event in _levelMover
+            //Invoke spawn event in LevelMover._levelMover
         }
     }
 }

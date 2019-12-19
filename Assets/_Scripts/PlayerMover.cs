@@ -7,8 +7,7 @@ public class PlayerMover : Singleton<PlayerMover>
     public Transform model;
     public Transform charachterTransform;
     public InputManager _inputManager;
-    private LevelMover _levelMover;
-
+   
 
     //[SerializeField] private Joystick joystick;
 
@@ -20,17 +19,12 @@ public class PlayerMover : Singleton<PlayerMover>
     [SerializeField] private float moveResistance = 0.2f;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //_inputManager = GetComponent<InputManager>();
-        _levelMover = LevelMover.Instance;
-    }
+  
 
     // Update is called once per frame
     void Update()
     {
-        if(_levelMover.ParachuteBool && _levelMover.Moving)
+        if(LevelMover.instance.ParachuteBool && LevelMover.instance.Moving)
         {
             charachterTransform.localPosition = _inputManager.charInput;
             charachterTransform.localPosition = new Vector3(Mathf.Clamp(charachterTransform.localPosition.x, -xBound, xBound),
@@ -42,11 +36,11 @@ public class PlayerMover : Singleton<PlayerMover>
             if (Mathf.Abs(charachterTransform.localPosition.x) > moveResistance || Mathf.Abs(charachterTransform.localPosition.z) > 0.2f)
             {
                 //Debug.Log("MOVE");
-                _levelMover.offsetDir = new Vector3 ((charachterTransform.position-_levelMover.groundTarget.position).normalized.x ,
-                                                    0, (charachterTransform.position - _levelMover.groundTarget.position).normalized.z );
+                LevelMover.instance.offsetDir = new Vector3 ((charachterTransform.position-LevelMover.instance.groundTarget.position).normalized.x ,
+                                                    0, (charachterTransform.position - LevelMover.instance.groundTarget.position).normalized.z );
             }
         }
-        else if (_levelMover.Moving)
+        else if (LevelMover.instance.Moving)
         {
             charachterTransform.localPosition = _inputManager.charInput;
             charachterTransform.localPosition = new Vector3(Mathf.Clamp(charachterTransform.localPosition.x, -xBound, xBound),
@@ -56,16 +50,16 @@ public class PlayerMover : Singleton<PlayerMover>
             if (Mathf.Abs(charachterTransform.localPosition.x) > moveResistance || Mathf.Abs(charachterTransform.localPosition.z) > 0.2f)
             {
                 //Debug.Log("MOVE");
-                _levelMover.offsetDir = -(sideSpeed * charachterTransform.localPosition);
+                LevelMover.instance.offsetDir = -(sideSpeed * charachterTransform.localPosition);
             }
 
 
             //Orientate model
-            Vector3 diff = -((Camera.main.transform.position + _levelMover.offsetDir * 10f) /*+ _levelMover.offsetDir.normalized*/);
+            Vector3 diff = -((Camera.main.transform.position + LevelMover.instance.offsetDir * 10f) /*+ LevelMover._levelMover.offsetDir.normalized*/);
             Debug.DrawLine(transform.position, transform.position + diff, Color.red);
 
 
-            Quaternion currentRotation = Quaternion.LookRotation(model.transform.position + new Vector3(diff.x, diff.y, diff.z), Vector3.forward - new Vector3(_levelMover.offsetDir.x, _levelMover.offsetDir.y, -Mathf.Abs(_levelMover.offsetDir.z)).normalized);
+            Quaternion currentRotation = Quaternion.LookRotation(model.transform.position + new Vector3(diff.x, diff.y, diff.z), Vector3.forward - new Vector3(LevelMover.instance.offsetDir.x, LevelMover.instance.offsetDir.y, -Mathf.Abs(LevelMover.instance.offsetDir.z)).normalized);
             model.rotation = Quaternion.Lerp(model.rotation, currentRotation, rotationSpeed * Time.deltaTime);
 
         }

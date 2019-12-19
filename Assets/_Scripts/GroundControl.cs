@@ -10,13 +10,7 @@ public class GroundControl : MonoBehaviour
         {
             if (LevelMover.Instance.ParachuteBool)
             {
-                Debug.Log("REE");
-                LevelMover.Instance.Moving = false;
-                InputCameraController.Instance.SetLiveCam("Finish");
-                InputCameraController.Instance.parachuteSlowCam.m_Follow.gameObject.SetActive(false);
-                transform.parent.position = new Vector3(transform.parent.position.x, other.transform.position.y, transform.parent.position.z);
-                //other.transform.position += Vector3.up * 0.5f;
-                FunctionHandler.Instance.ResetPlayerPosition();
+                LevelMover.Instance.ResetPosition();
 
             }
             else
@@ -25,8 +19,9 @@ public class GroundControl : MonoBehaviour
                 InputCameraController.Instance.SetLiveCam("Finish");
                 GameManager.Instance.CollidedWithEarth();
             }
-                FunctionHandler.Instance.ToggleCanvas("UI");
-                FunctionHandler.Instance.ToggleCanvas("Menu");
+
+                FunctionHandler.Instance.LevelComplete();
+
         }
     }
 }

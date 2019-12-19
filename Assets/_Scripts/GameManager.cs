@@ -11,7 +11,8 @@ public class GameManager : Singleton<GameManager>
     public GameObject poofPref;
 
     public AltmeterBehaviour altmeter;
-    
+
+    public float multiplierCoolDown = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,8 @@ public class GameManager : Singleton<GameManager>
         Destroy(triggeredGoal.gameObject);
        
         LevelMover.Instance.SpeedIncrease();
+
+        ScoreSystem.IncreaseScore();
     }
 
     public void CollidedWithEarth()
@@ -38,17 +41,33 @@ public class GameManager : Singleton<GameManager>
 
     public void ParachuteZone(bool RedZone)
     {
-        if(RedZone)
+        if(!RedZone)
         {
-            altmeter.AlarmGlowToggle("Red", true);
-            altmeter.AlarmGlowToggle("Yellow", false);
+            altmeter.AlarmGlowToggle("Yellow", true);
+            StartCoroutine(StopMultiplier());
         }
         else
         {
-            altmeter.AlarmGlowToggle("Yellow", true);
+            StopCoroutine(GameManager.Instance.StopMultiplier());
+            ScoreSystem.ResetMultiplier();
+
+            altmeter.AlarmGlowToggle("Red", true);
+            altmeter.AlarmGlowToggle("Yellow", false);
 
             //Debug.Log("TOO LATE");
             //FunctionHandler.Instance.PullRing();
         }
     }
+
+
+    public IEnumerator StopMultiplier()
+    {
+        while (LevelMover.instance.YellowZoneBool)
+        {
+            ScoreSystem.IncreaseMultiplier();
+            yield return new WaitForSeconds(multiplierCoolDown);
+        }
+    }
+
+
 }

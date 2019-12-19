@@ -9,7 +9,11 @@ public class FunctionHandler : Singleton<FunctionHandler>
     public Canvas uiCanvas;
     public Canvas menuCanvas;
     public Transform model;
+
+
     public GameObject playButton;
+    public GameObject restartMenuButton;
+    public GameObject resumeMenuButton;
 
     public void ToggleCanvas(string targetName)
     {
@@ -43,6 +47,7 @@ public class FunctionHandler : Singleton<FunctionHandler>
         ResetPlayerPosition();
         InputCameraController.Instance.ParachutePulled();
         LevelMover.Instance.ResetSpeed();
+        GameManager.Instance.StopAllCoroutines();
     }
 
 
@@ -66,4 +71,15 @@ public class FunctionHandler : Singleton<FunctionHandler>
         model.localEulerAngles = new Vector3(-90f,transform.eulerAngles.y,0);
     }
 
+
+    public void LevelComplete()
+    {
+        Instance.ToggleCanvas("UI");
+        Instance.ToggleCanvas("Menu");
+        restartMenuButton.SetActive(true);
+        resumeMenuButton.SetActive(false);
+    }
+
+
+   
 }
