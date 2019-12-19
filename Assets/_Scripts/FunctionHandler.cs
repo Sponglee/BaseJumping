@@ -5,14 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class FunctionHandler : Singleton<FunctionHandler>
 {
-    public Canvas RingCanvas;
+    public Canvas ringCanvas;
     public Canvas uiCanvas;
+    public Canvas menuCanvas;
     public Transform model;
     public GameObject playButton;
 
-    public void RingCanvasEnabled()
+    public void ToggleCanvas(string targetName)
     {
-        RingCanvas.gameObject.SetActive(true);
+        Canvas target;
+
+        switch (targetName)
+        {
+            case "UI":
+                break;
+            case "Ring":
+                target = ringCanvas;
+                break;
+            case "Menu":
+                target = menuCanvas;
+                break;
+            default:
+                return;
+        }
+
+        target.gameObject.SetActive(!target.gameObject.activeSelf);
         //uiCanvas.gameObject.SetActive(false);
     }
 
@@ -20,9 +37,7 @@ public class FunctionHandler : Singleton<FunctionHandler>
     public void PullRing()
     {
         
-       
-
-        RingCanvas.gameObject.SetActive(false);
+        ringCanvas.gameObject.SetActive(false);
         //uiCanvas.gameObject.SetActive(true);
         ResetPlayerPosition();
         InputCameraController.Instance.ParachutePulled();
@@ -32,7 +47,9 @@ public class FunctionHandler : Singleton<FunctionHandler>
 
     public void StartLevel()
     {
-        playButton.SetActive(false);
+        ToggleCanvas("Menu");
+        ToggleCanvas("UI");
+
         InputCameraController.Instance.SetLiveCam("Speed");
         LevelMover.Instance.Moving = true;
         //model.localEulerAngles = new Vector3(90f, 90f, 0f);

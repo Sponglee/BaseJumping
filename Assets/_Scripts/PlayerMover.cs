@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMover : MonoBehaviour
+public class PlayerMover : Singleton<PlayerMover>
 {
     public Transform model;
     public Transform charachterTransform;
     public InputManager _inputManager;
     private LevelMover _levelMover;
+
+
+    //[SerializeField] private Joystick joystick;
 
     [Header("MovementControls")]
     [SerializeField] private float rotationSpeed = 1f;
@@ -29,10 +32,10 @@ public class PlayerMover : MonoBehaviour
     {
         if(_levelMover.ParachuteBool && _levelMover.Moving)
         {
-            //charachterTransform.localPosition = _inputManager.charInput;
-            //charachterTransform.localPosition = new Vector3(Mathf.Clamp(charachterTransform.localPosition.x, -xBound, xBound),
-            //    charachterTransform.localPosition.y,
-            //    Mathf.Clamp(charachterTransform.localPosition.z, -zBound, zBound));
+            charachterTransform.localPosition = _inputManager.charInput;
+            charachterTransform.localPosition = new Vector3(Mathf.Clamp(charachterTransform.localPosition.x, -xBound, xBound),
+                charachterTransform.localPosition.y,
+                Mathf.Clamp(charachterTransform.localPosition.z, -zBound, zBound));
 
 
 
@@ -67,4 +70,16 @@ public class PlayerMover : MonoBehaviour
 
         }
     }
+
+    public void SwitchMovement()
+    {
+        GetComponent<GlidingInputManager>().enabled = false;
+        ParachuteInputManager parachute = GetComponent<ParachuteInputManager>();
+
+
+        parachute.enabled = true;
+        parachute.joystick.gameObject.SetActive(true);
+        _inputManager = parachute;
+    }
+
 }

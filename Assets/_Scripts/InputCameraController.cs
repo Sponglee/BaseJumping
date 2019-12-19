@@ -145,10 +145,10 @@ public class InputCameraController : Singleton<InputCameraController>
 
     public void ParachutePulled()
     {
-        parachuteSpeedCam.transform.parent.gameObject.SetActive(true);
+        parachuteSpeedCam.m_Follow.gameObject.SetActive(true);
         speedCam = parachuteSpeedCam;
-        
         normalCam = parachuteSpeedCam;
+        SetLiveCam("Normal");
         //DEBUG
         LevelMover.Instance.ParachuteBool = true;
 

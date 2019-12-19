@@ -21,7 +21,7 @@ public class LevelMover : Singleton<LevelMover>
         {
             levelSpeed = value;
             
-            Debug.Log("CHANGED");
+            //Debug.Log("CHANGED");
         
             if (value == startSpeed)
                 TargetCam = "Speed";
@@ -58,6 +58,7 @@ public class LevelMover : Singleton<LevelMover>
     public Transform spawnPoint;
     public Transform groundHolder;
     public Transform groundTarget;
+    public Transform noReturn;
 
     private float groundStartAltitude;
 
@@ -65,6 +66,8 @@ public class LevelMover : Singleton<LevelMover>
 
     public bool Moving = false;
     public bool ParachuteBool = false;
+    public bool YellowZoneBool = false;
+    public bool RedZoneBool = false;
     public Vector3 offsetDir;
 
 
@@ -113,6 +116,7 @@ public class LevelMover : Singleton<LevelMover>
 
     public void ResetSpeed()
     {
-        levelSpeed = 1f;
+        levelSpeed = 0.5f;
+        startSpeed = 0.5f;
     }
 }

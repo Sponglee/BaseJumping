@@ -9,7 +9,7 @@ public class RingPuller : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(ring.Vertical);
+        //Debug.Log(ring.Vertical);
         if(ring.Vertical <=-1)
         {
             FunctionHandler.Instance.PullRing();

@@ -26,7 +26,7 @@ public class ObstacleVerticalMover : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(_levelMover.Moving)
         {
@@ -43,7 +43,7 @@ public class ObstacleVerticalMover : MonoBehaviour
             Destroy(gameObject);
 
             //DEBUG SPAWN
-            if(!_levelMover.ParachuteBool)
+            if(!_levelMover.YellowZoneBool)
                 _levelMover.SpawnSegment();
 
             //Invoke spawn event in _levelMover

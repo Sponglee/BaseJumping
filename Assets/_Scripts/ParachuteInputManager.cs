@@ -5,7 +5,7 @@ using UnityEngine;
 public class ParachuteInputManager : InputManager
 {
 
-    [SerializeField] private protected Joystick joystick;
+    public Joystick joystick;
     
 
 
