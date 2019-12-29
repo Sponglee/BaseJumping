@@ -7,7 +7,9 @@ public class PlayerMover : Singleton<PlayerMover>
     public Transform model;
     public Transform charachterTransform;
     public InputManager _inputManager;
-   
+
+    public Transform parachuteHolder;
+    public Transform preParachuteHolder;
 
     //[SerializeField] private Joystick joystick;
 
@@ -24,21 +26,18 @@ public class PlayerMover : Singleton<PlayerMover>
     // Update is called once per frame
     void Update()
     {
-        if(LevelMover.instance.ParachuteBool && LevelMover.instance.Moving)
+        if((LevelMover.instance.PreParachuteBool || LevelMover.instance.ParachuteBool) && LevelMover.instance.Moving)
         {
-            charachterTransform.localPosition = _inputManager.charInput;
-            charachterTransform.localPosition = new Vector3(Mathf.Clamp(charachterTransform.localPosition.x, -xBound, xBound),
-                charachterTransform.localPosition.y,
-                Mathf.Clamp(charachterTransform.localPosition.z, -zBound, zBound));
 
-
-
-            if (Mathf.Abs(charachterTransform.localPosition.x) > moveResistance || Mathf.Abs(charachterTransform.localPosition.z) > 0.2f)
+            //Debug.Log("MOVE");
+            LevelMover.instance.offsetDir = new Vector3((charachterTransform.position - LevelMover.instance.groundTarget.position).normalized.x,
+                                                0, (charachterTransform.position - LevelMover.instance.groundTarget.position).normalized.z);
+           
+            if(Input.GetMouseButtonDown(0))
             {
-                //Debug.Log("MOVE");
-                LevelMover.instance.offsetDir = new Vector3 ((charachterTransform.position-LevelMover.instance.groundTarget.position).normalized.x ,
-                                                    0, (charachterTransform.position - LevelMover.instance.groundTarget.position).normalized.z );
+                RingPuller.ringPullSpeedUp.Invoke();    
             }
+
         }
         else if (LevelMover.instance.Moving)
         {

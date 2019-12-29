@@ -12,8 +12,7 @@ public class GameManager : Singleton<GameManager>
 
     public AltmeterBehaviour altmeter;
 
-    public float multiplierCoolDown = 0.5f;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -39,9 +38,8 @@ public class GameManager : Singleton<GameManager>
     public void CollidedWithEarth()
     {
         Instantiate(poofPref, Vector3.up, Quaternion.identity);
-        Destroy(PlayerMover.Instance.gameObject);
 
-        ScoreSystem.ResetMultiplier();
+      
     }
 
     public void ParachuteZone(bool RedZone)
@@ -49,14 +47,14 @@ public class GameManager : Singleton<GameManager>
         if(!RedZone)
         {
             altmeter.AlarmGlowToggle("Yellow", true);
-            StartCoroutine(StopMultiplier());
-            StartCoroutine(InputCameraController.Instance.StopParachuteZoom());
+            StartCoroutine(ScoreSystem.StopMultiplier());
+            //StartCoroutine(InputCameraController.Instance.StopParachuteZoom());
         }
         else
         {
-            StopCoroutine(GameManager.Instance.StopMultiplier());
+            //StopCoroutine(GameManager.Instance.StopMultiplier());
 
-            ScoreSystem.multReset.Invoke();
+            //ScoreSystem.multReset.Invoke();
 
 
            
@@ -70,15 +68,6 @@ public class GameManager : Singleton<GameManager>
     }
 
 
-    public IEnumerator StopMultiplier()
-    {
-        while (LevelMover.instance.YellowZoneBool)
-        {
-            ScoreSystem.IncreaseMultiplier();
-            
-            yield return new WaitForSeconds(multiplierCoolDown);
-        }
-    }
 
    
 }

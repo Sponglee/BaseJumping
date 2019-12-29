@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class MultiplierUI : ScoreUI
 {
+    //Update ui even (0 - multiplier, 1 - score)
     // Start is called before the first frame update
     void Start()
     {
         ScoreSystem.uiUpdateEvent.AddListener(UpdateUI);
         ScoreSystem.multReset.AddListener(MultiplierFadeOut);
-        ScoreSystem.ringSuccess.AddListener(RingSuccessFinished);
-
+       
         targetText.text = "x";
 
 
@@ -21,8 +21,8 @@ public class MultiplierUI : ScoreUI
     {
         if(target == 0)
         {
-            Debug.Log("UPDATE " + ScoreSystem.ScoreMultiplier);
-            if (ScoreSystem.ScoreMultiplier != 1)
+            //Debug.Log("UPDATE " + ScoreSystem.ScoreMultiplier);
+            if (ScoreSystem.ScoreMultiplier > 1)
             {
 
                 targetText.enabled = true;
@@ -34,11 +34,7 @@ public class MultiplierUI : ScoreUI
             }
             targetText.text = string.Format("x{0}", ScoreSystem.ScoreMultiplier.ToString());
         }
-        else if(target == 1)
-        {
-            targetText.text = string.Format("x{0}", ScoreSystem.ScoreMultiplier.ToString());
-        }
-
+        
 
 
        
@@ -60,11 +56,7 @@ public class MultiplierUI : ScoreUI
         GetComponent<Animator>().Play("Success");
     }
 
-    public void RingSuccessFinished()
-    {
-        ScoreSystem.EvaluateScores();
-       
-    }
+  
 
 
 }

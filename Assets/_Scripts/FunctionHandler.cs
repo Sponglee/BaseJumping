@@ -10,6 +10,7 @@ public class FunctionHandler : Singleton<FunctionHandler>
     public Canvas uiCanvas;
     public Canvas menuCanvas;
     public Canvas levelCompleteCanvas;
+    public Canvas scoreCompleteCanvas;
 
     public Text levelCompleteText;
 
@@ -38,6 +39,9 @@ public class FunctionHandler : Singleton<FunctionHandler>
             case "LevelComplete":
                 target = levelCompleteCanvas;
                 break;
+            case "ScoreComplete":
+                target = scoreCompleteCanvas;
+                break;
             default:
                 return;
         }
@@ -47,18 +51,7 @@ public class FunctionHandler : Singleton<FunctionHandler>
     }
 
 
-    public void PullRing()
-    {
-        ringCanvas.gameObject.SetActive(false);
-        //uiCanvas.gameObject.SetActive(true);
-        ResetPlayerPosition();
-        InputCameraController.Instance.ParachutePulled();
-        LevelMover.Instance.ResetSpeed();
-        GameManager.Instance.StopAllCoroutines();
-
-        ScoreSystem.ringSuccess.Invoke();
-    }
-
+  
 
     public void StartLevel()
     {
@@ -85,12 +78,22 @@ public class FunctionHandler : Singleton<FunctionHandler>
     {
         levelCompleteText.text = text;
 
+       
         Instance.ToggleCanvas("UI");
         Instance.ToggleCanvas("LevelComplete");
+
         restartMenuButton.SetActive(true);
         resumeMenuButton.SetActive(false);
+
+
+        ScoreComplete();
     }
 
-
+    public void ScoreComplete()
+    {
+        Instance.ToggleCanvas("ScoreComplete");
+        ScoreSystem.scoreComplete.Invoke();
+        StartCoroutine(ScoreSystem.StopEvaluateScore());
+    }
    
 }

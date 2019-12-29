@@ -31,16 +31,21 @@ public class InputCameraController : Singleton<InputCameraController>
     public float speedTimer = 0;
     public float speedUpTime = 5f;
     public float cameraZoomRate = 10f;
+
+
+
     private void Start()
     {
         SetLiveCam("Start");
+        ScoreSystem.ringSuccess.AddListener(ParachutePulled);
+
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
            
-        if(LevelMover.instance.Moving && !LevelMover.instance.ParachuteBool)
+        if(LevelMover.instance.Moving && !LevelMover.instance.ParachuteBool && !LevelMover.instance.PreParachuteBool)
         {
 
 
@@ -63,13 +68,7 @@ public class InputCameraController : Singleton<InputCameraController>
 
             //}
         }
-        else
-        {
-            if (Input.GetMouseButtonDown(2))
-            {
-              
-            }
-        }
+     
         
     }
 
@@ -106,10 +105,13 @@ public class InputCameraController : Singleton<InputCameraController>
             case "Normal":
                 liveCam = normalCam;
                 break;
-         
-            //case "Parachute":
-            //    targetCam = parachuteSpeedCam;
-                //break;
+
+            case "ParachuteSpeed":
+                liveCam = parachuteSpeedCam;
+                break;
+            case "ParachuteSlow":
+                liveCam = parachuteSlowCam;
+                break;
             case "Finish":
                 liveCam = finishCam;
                 break;
@@ -126,6 +128,9 @@ public class InputCameraController : Singleton<InputCameraController>
             }
             liveCam.m_Priority = 99;
         }
+
+
+        Debug.Log(name);
     }
 
 
@@ -137,11 +142,11 @@ public class InputCameraController : Singleton<InputCameraController>
             SetLiveCam("Speed");
 
 
-            SetLiveCam("Normal");
+            SetLiveCam("Speed");
             SpeedUpBool = false;
             speedTimer = 0f;
 
-            LevelMover.Instance.ResetSpeed();
+            
         }
         else
             speedTimer = 0;
@@ -151,12 +156,10 @@ public class InputCameraController : Singleton<InputCameraController>
 
     public void ParachutePulled()
     {
-        parachuteSpeedCam.m_Follow.gameObject.SetActive(true);
-        speedCam = parachuteSpeedCam;
-        normalCam = parachuteSpeedCam;
-        SetLiveCam("Start");
-        //DEBUG
-        LevelMover.Instance.ParachuteBool = true;
+       
+        
+        SetLiveCam("ParachuteSpeed");
+        LevelMover.Instance.ResetSpeed();
 
 
     }

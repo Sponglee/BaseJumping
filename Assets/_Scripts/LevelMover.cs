@@ -12,6 +12,8 @@ public class LevelMover : Singleton<LevelMover>
     public float startSpeed = 1f;
     public float maxSpeed = 1.5f;
     public float speedDecreaseRate = 0.1f;
+    public float speedIncreaseRate = 0.2f;
+
     [SerializeField] private float levelSpeed = 1f;
     public float LevelSpeed
     {
@@ -28,9 +30,9 @@ public class LevelMover : Singleton<LevelMover>
         
             if (value == startSpeed)
                 TargetCam = "Speed";
-            else if (value > startSpeed && value <= 1.1f)
+            else if (value > startSpeed && value <=(maxSpeed-startSpeed)/3f)
                 TargetCam = "Speed1";
-            else if (value > 1.1f && value <= maxSpeed)
+            else if (value > (maxSpeed-startSpeed)/2f && value <= maxSpeed)
                 TargetCam = "Speed2";
             
             
@@ -48,8 +50,12 @@ public class LevelMover : Singleton<LevelMover>
 
         set
         {
+            if(value != targetCam && !ParachuteBool && !PreParachuteBool)
+            {
+                InputCameraController.Instance.SetLiveCam(value);
+            }
             targetCam = value;
-            InputCameraController.Instance.SetLiveCam(TargetCam);
+
         }
     }
 
@@ -68,6 +74,7 @@ public class LevelMover : Singleton<LevelMover>
     public Slider altmeter;
 
     public bool Moving = false;
+    public bool PreParachuteBool = false;
     public bool ParachuteBool = false;
     public bool YellowZoneBool = false;
     public bool RedZoneBool = false;
@@ -115,7 +122,13 @@ public class LevelMover : Singleton<LevelMover>
 
     public void SpeedIncrease()
     {
-        levelSpeed += 0.2f;
+        levelSpeed += speedIncreaseRate;
+        LevelSpeed = Mathf.Clamp(levelSpeed, startSpeed, maxSpeed);
+    }
+
+    public void SpeedDecrease()
+    {
+        levelSpeed -= speedIncreaseRate;
         LevelSpeed = Mathf.Clamp(levelSpeed, startSpeed, maxSpeed);
     }
 
@@ -131,9 +144,9 @@ public class LevelMover : Singleton<LevelMover>
     {
         Debug.Log("REE");
         LevelMover.Instance.Moving = false;
-        InputCameraController.Instance.SetLiveCam("Finish");
+
         InputCameraController.Instance.parachuteSlowCam.m_Follow.gameObject.SetActive(false);
-        FunctionHandler.Instance.ResetPlayerPosition();
+        
         groundHolder.position = new Vector3(groundHolder.position.x,PlayerMover.Instance.charachterTransform.position.y, groundHolder.position.z);
         //other.transform.position += Vector3.up * 0.5f;
     }

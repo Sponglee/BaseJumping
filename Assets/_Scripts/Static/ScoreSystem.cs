@@ -10,6 +10,8 @@ public class MultiplierResetEvent : UnityEvent { };
 [System.Serializable]
 public class RingSuccessEvent : UnityEvent { };
 
+[System.Serializable]
+public class ScoreCompleteEvent : UnityEvent { };
 
 public static class ScoreSystem 
 {
@@ -43,6 +45,7 @@ public static class ScoreSystem
     }
 
     private static int scoreMultiplier = 1;
+    public static float multiplierCoolDown = 0.2f;
 
     //Update ui even (0 - multiplier, 1 - score)
     public static ScorUpdateEvent uiUpdateEvent = new ScorUpdateEvent();
@@ -50,6 +53,15 @@ public static class ScoreSystem
     public static MultiplierResetEvent multReset = new MultiplierResetEvent();
     //For successfull ring pull 
     public static RingSuccessEvent ringSuccess = new RingSuccessEvent();
+    //For successfull ring pull 
+    public static ScoreCompleteEvent scoreComplete = new ScoreCompleteEvent();
+
+
+    public static void DecreaseMultiplier()
+    {
+        ScoreMultiplier--;
+
+    }
 
 
     public static void IncreaseMultiplier()
@@ -58,9 +70,9 @@ public static class ScoreSystem
        
     }
 
-    public static void IncreaseScore()
+    public static void IncreaseScore(int scoreAmount = 1)
     {
-        PlayerScore++;
+        PlayerScore+= scoreAmount;
         
     }
 
@@ -75,9 +87,32 @@ public static class ScoreSystem
         ResetMultiplier();
     }
 
-    public static void EvaluateScores()
+   
+
+
+    public static IEnumerator StopMultiplier()
     {
-        //Make count score sequence ( for i<multiple => playerScore + playerScore each frame)
+        while (!LevelMover.instance.ParachuteBool)
+        {
+            IncreaseMultiplier();
+
+            yield return new WaitForSeconds(multiplierCoolDown);
+        }
+    }
+
+
+    public static IEnumerator StopEvaluateScore()
+    {
+        int scoreToEvaluate = playerScore;
+        
+        while (ScoreMultiplier>1)
+        {
+            IncreaseScore(scoreToEvaluate);
+            DecreaseMultiplier();
+            multiplierCoolDown -= 0.01f;
+            yield return new WaitForSeconds(multiplierCoolDown);
+        }
+
     }
 
 }
