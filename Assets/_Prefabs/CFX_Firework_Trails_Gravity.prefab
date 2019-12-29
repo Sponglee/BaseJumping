@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 198405478074982118}
   - component: {fileID: 199773197783368204}
   - component: {fileID: 114756874033953806}
+  - component: {fileID: 1619109919}
   m_Layer: 0
   m_Name: CFX_Firework_Trails_Gravity
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1247311384876784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -10, z: 0}
+  m_LocalPosition: {x: 0, y: -20, z: 0}
   m_LocalScale: {x: 7.4107, y: 7.4107, z: 7.4107}
   m_Children: []
   m_Father: {fileID: 0}
@@ -42,7 +43,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1247311384876784}
   serializedVersion: 6
   lengthInSec: 0.6
-  simulationSpeed: 1
+  simulationSpeed: 0.5
   stopAction: 0
   cullingMode: 3
   ringBufferMode: 0
@@ -151,7 +152,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -185,23 +186,23 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 2
+      minMaxState: 4
       minColor: {r: 1, g: 0.85490197, b: 0, a: 0.54901963}
       maxColor: {r: 1, g: 0.9098039, b: 0.37254903, a: 0.78431374}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
-        key2: {r: 0, g: 0, b: 0, a: 0}
-        key3: {r: 0, g: 0, b: 0, a: 0}
+        key0: {r: 0.9716981, g: 0.9716778, b: 0.050418302, a: 1}
+        key1: {r: 0.3529412, g: 0.90247405, b: 0.98039216, a: 1}
+        key2: {r: 0.9882353, g: 0.67058825, b: 0.93872607, a: 0}
+        key3: {r: 1, g: 0.11792451, b: 0.51402974, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 65535
-        ctime2: 0
-        ctime3: 0
+        ctime1: 21010
+        ctime2: 42791
+        ctime3: 65535
         ctime4: 0
         ctime5: 0
         ctime6: 0
@@ -215,7 +216,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_NumColorKeys: 2
+        m_NumColorKeys: 4
         m_NumAlphaKeys: 2
       minGradient:
         serializedVersion: 2
@@ -249,8 +250,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.5
-      minScalar: 0.3
+      scalar: 0.2
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -463,7 +464,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 5
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1174,32 +1175,32 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 1
+    enabled: 0
     gradient:
       serializedVersion: 2
-      minMaxState: 1
+      minMaxState: 3
       minColor: {r: 1, g: 1, b: 1, a: 1}
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
-        key2: {r: 1, g: 0.8862745, b: 0.19215687, a: 0}
-        key3: {r: 1, g: 0.8862745, b: 0.19215687, a: 0}
-        key4: {r: 1, g: 1, b: 1, a: 0.039215688}
+        key0: {r: 0.3529412, g: 0.90247405, b: 0.98039216, a: 1}
+        key1: {r: 0.9716981, g: 0.9716778, b: 0.050418302, a: 1}
+        key2: {r: 1, g: 0.11792451, b: 0.51402974, a: 0}
+        key3: {r: 0.9882353, g: 0.67058825, b: 0.93872607, a: 0}
+        key4: {r: 1, g: 0.11792451, b: 0.51402974, a: 0.039215688}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
-        ctime0: 0
-        ctime1: 65535
-        ctime2: 64764
-        ctime3: 65535
+        ctime0: 17155
+        ctime1: 26214
+        ctime2: 45296
+        ctime3: 58982
         ctime4: 65535
         ctime5: 0
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 32768
+        atime1: 65535
         atime2: 64224
         atime3: 65535
         atime4: 65535
@@ -1207,22 +1208,22 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_NumColorKeys: 2
-        m_NumAlphaKeys: 3
+        m_NumColorKeys: 4
+        m_NumAlphaKeys: 2
       minGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
-        key2: {r: 0, g: 0, b: 0, a: 0}
-        key3: {r: 0, g: 0, b: 0, a: 0}
+        key0: {r: 0.9716981, g: 0.9716778, b: 0.050418302, a: 1}
+        key1: {r: 0.3529412, g: 0.90247405, b: 0.98039216, a: 1}
+        key2: {r: 0.9882353, g: 0.67058825, b: 0.93872607, a: 0}
+        key3: {r: 1, g: 0.11792451, b: 0.51402974, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 65535
-        ctime2: 0
-        ctime3: 0
+        ctime1: 21010
+        ctime2: 42791
+        ctime3: 65535
         ctime4: 0
         ctime5: 0
         ctime6: 0
@@ -1236,7 +1237,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_NumColorKeys: 2
+        m_NumColorKeys: 4
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
@@ -4546,3 +4547,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnlyDeactivate: 0
+--- !u!114 &1619109919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247311384876784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b3b13d52743254890b63f23d479157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedModifier: 0.5

@@ -27,7 +27,7 @@ public class GameManager : Singleton<GameManager>
 
     public void GoalTriggered(GoalBehaviour triggeredGoal)
     {
-        Instantiate(fireWorksPref, triggeredGoal.transform.position, Quaternion.identity);
+        Instantiate(fireWorksPref, PlayerMover.Instance.charachterTransform.position, Quaternion.identity);
         Destroy(triggeredGoal.gameObject);
        
         LevelMover.Instance.SpeedIncrease();
@@ -37,7 +37,7 @@ public class GameManager : Singleton<GameManager>
 
     public void CollidedWithEarth()
     {
-        Instantiate(poofPref, Vector3.up, Quaternion.identity);
+        Instantiate(poofPref, Vector3.up*2f, Quaternion.identity);
 
       
     }
