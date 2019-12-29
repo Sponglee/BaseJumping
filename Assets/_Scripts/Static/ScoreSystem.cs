@@ -104,13 +104,14 @@ public static class ScoreSystem
     public static IEnumerator StopEvaluateScore()
     {
         int scoreToEvaluate = playerScore;
-        
+        float tmpMultiplier = multiplierCoolDown;
+
         while (ScoreMultiplier>1)
         {
             IncreaseScore(scoreToEvaluate);
             DecreaseMultiplier();
-            multiplierCoolDown -= 0.01f;
-            yield return new WaitForSeconds(multiplierCoolDown);
+            tmpMultiplier -= 0.01f;
+            yield return new WaitForSeconds(tmpMultiplier);
         }
 
     }

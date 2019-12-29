@@ -159,7 +159,7 @@ public class InputCameraController : Singleton<InputCameraController>
        
         
         SetLiveCam("ParachuteSpeed");
-        LevelMover.Instance.ResetSpeed();
+      
 
 
     }

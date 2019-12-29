@@ -12,7 +12,7 @@ public class MultiplierUI : ScoreUI
         ScoreSystem.uiUpdateEvent.AddListener(UpdateUI);
         ScoreSystem.multReset.AddListener(MultiplierFadeOut);
        
-        targetText.text = "x";
+        targetText.text = "";
 
 
     }
@@ -26,13 +26,14 @@ public class MultiplierUI : ScoreUI
             {
 
                 targetText.enabled = true;
+                targetText.text = string.Format("x{0}", ScoreSystem.ScoreMultiplier.ToString());
             }
             else
             {
                 targetText.enabled = false;
-               
+                
             }
-            targetText.text = string.Format("x{0}", ScoreSystem.ScoreMultiplier.ToString());
+            
         }
         
 

@@ -99,6 +99,7 @@ public class RingPuller : MonoBehaviour
             PlayerMover.Instance.parachuteHolder.gameObject.SetActive(true);
             
             LevelMover.instance.ParachuteBool = true;
+            LevelMover.Instance.ResetSpeed();
             InputCameraController.Instance.SetLiveCam("ParachuteSlow");
             FunctionHandler.Instance.ResetPlayerPosition();
         }
