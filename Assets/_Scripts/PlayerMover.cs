@@ -10,6 +10,7 @@ public class PlayerMover : Singleton<PlayerMover>
 
     public Transform parachuteHolder;
     public Transform preParachuteHolder;
+    public Transform trailHolder;
 
     //[SerializeField] private Joystick joystick;
 
@@ -21,7 +22,10 @@ public class PlayerMover : Singleton<PlayerMover>
     [SerializeField] private float moveResistance = 0.2f;
 
 
-  
+    private void Start()
+    {
+        LevelMover.trailEvent.AddListener(EnableTrail);
+    }
 
     // Update is called once per frame
     void Update()
@@ -29,10 +33,11 @@ public class PlayerMover : Singleton<PlayerMover>
         if((LevelMover.instance.PreParachuteBool || LevelMover.instance.ParachuteBool) && LevelMover.instance.Moving)
         {
 
-            //Debug.Log("MOVE");
+            //Offset valute to head to the target
             LevelMover.instance.offsetDir = new Vector3((charachterTransform.position - LevelMover.instance.groundTarget.position).normalized.x,
                                                 0, (charachterTransform.position - LevelMover.instance.groundTarget.position).normalized.z);
            
+            //Click to Speed up clicks
             if(Input.GetMouseButtonDown(0))
             {
                 RingPuller.ringPullSpeedUp.Invoke();    
@@ -75,4 +80,15 @@ public class PlayerMover : Singleton<PlayerMover>
         _inputManager = parachute;
     }
 
+    public void EnableTrail()
+    {
+        trailHolder.gameObject.SetActive(true);
+        LevelMover.trailEvent.AddListener(DisableTrail);
+    }
+
+    public void DisableTrail()
+    {
+        trailHolder.gameObject.SetActive(false);
+        LevelMover.trailEvent.AddListener(EnableTrail);
+    }
 }

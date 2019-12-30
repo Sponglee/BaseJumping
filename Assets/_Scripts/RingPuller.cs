@@ -10,12 +10,14 @@ public class RingPuller : MonoBehaviour
     //Update ui even (0 - multiplier, 1 - score)
     public static UnityEvent ringPullSpeedUp = new UnityEvent();
 
+    public Image parachutePullSlider;
 
 
     [SerializeField] private Joystick ring;
     [SerializeField] private float parachutePullTime = 5f;
-    [SerializeField] private float parachuteTimer = 0f;
     [SerializeField] private float speedUpRate = 0.1f;
+    [SerializeField] private float parachuteTimer = 0f;
+
 
     public float ParachuteTimer
     {
@@ -32,15 +34,19 @@ public class RingPuller : MonoBehaviour
             {
                 parachutePullSlider.gameObject.SetActive(false);
             }
+            else if(parachutePullSlider.fillAmount > 0)
+            {
+                parachutePullSlider.gameObject.SetActive(true);
+            }
         }
     }
 
-    public Image parachutePullSlider;
 
     private void Start()
     {
 
         ScoreSystem.ringSuccess.AddListener(RingPulledSequence);
+        ScoreSystem.multReset.AddListener(StopTimer);
         ringPullSpeedUp.AddListener(RingPullSpeedUp);
 
     }
@@ -57,6 +63,8 @@ public class RingPuller : MonoBehaviour
 
     }
 
+
+    //Ring was pulled
     public void PullRing()
     {
 
@@ -73,6 +81,8 @@ public class RingPuller : MonoBehaviour
 
     }
 
+
+    //Invoke ring pull sequence
     public void RingPulledSequence()
     {
         ring.gameObject.SetActive(false);
@@ -81,8 +91,13 @@ public class RingPuller : MonoBehaviour
         StartCoroutine(StopRingPulled());
     }
    
+    public void StopTimer()
+    {
+        Debug.Log("HERE");
+        StopCoroutine(StopRingPulled());
+    }
 
-    //Fill the slider to get parachute out
+    //Fill preParachute slider to get parachute out
     private IEnumerator StopRingPulled()
     {
         
@@ -93,19 +108,27 @@ public class RingPuller : MonoBehaviour
 
         }
 
-        if(PlayerMover.Instance != null)
+        PullRingFinished();
+       
+    }
+
+    //Parachute pulled out 
+    public void PullRingFinished()
+    {
+        if (PlayerMover.Instance != null)
         {
             PlayerMover.Instance.preParachuteHolder.gameObject.SetActive(false);
             PlayerMover.Instance.parachuteHolder.gameObject.SetActive(true);
-            
+
             LevelMover.instance.ParachuteBool = true;
             LevelMover.Instance.ResetSpeed();
             InputCameraController.Instance.SetLiveCam("ParachuteSlow");
             FunctionHandler.Instance.ResetPlayerPosition();
+            PlayerMover.Instance.DisableTrail();
         }
-       
     }
 
+    //Player clicks to speed up
     public void RingPullSpeedUp()
     {
         ParachuteTimer += speedUpRate;

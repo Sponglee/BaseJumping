@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager>
 {
     public GameObject fireWorksPref;
     public GameObject poofPref;
+    public GameObject endFireWorksPref;
 
     public AltmeterBehaviour altmeter;
 
@@ -27,7 +28,8 @@ public class GameManager : Singleton<GameManager>
 
     public void GoalTriggered(GoalBehaviour triggeredGoal)
     {
-        Instantiate(fireWorksPref, PlayerMover.Instance.charachterTransform.position, Quaternion.identity);
+        SpawnFireWork(PlayerMover.Instance.charachterTransform.position - Vector3.up * 10f);
+
         Destroy(triggeredGoal.gameObject);
        
         LevelMover.Instance.SpeedIncrease();
@@ -35,12 +37,10 @@ public class GameManager : Singleton<GameManager>
         ScoreSystem.IncreaseScore();
     }
 
-    public void CollidedWithEarth()
-    {
-        Instantiate(poofPref, Vector3.up*2f, Quaternion.identity);
 
-      
-    }
+
+
+    
 
     public void ParachuteZone(bool RedZone)
     {
@@ -68,6 +68,20 @@ public class GameManager : Singleton<GameManager>
     }
 
 
+    public void SpawnFireWork(Vector3 target)
+    {
+        Instantiate(fireWorksPref, target, Quaternion.identity);
+    }
 
-   
+    public void SpawnPoof(Vector3 target)
+    {
+
+        Instantiate(poofPref, target, Quaternion.identity);
+
+    }
+
+    public void SpawnEndFireWork()
+    {
+        Instantiate(endFireWorksPref, InputCameraController.Instance.liveCam.transform);
+    }
 }

@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class LevelMover : Singleton<LevelMover>
 {
     public static LevelMover instance;
-
+    public static UnityEvent trailEvent = new UnityEvent();
 
     [Header("Speed Values")]
     public float startSpeed = 1f;
@@ -33,7 +34,10 @@ public class LevelMover : Singleton<LevelMover>
             else if (value > startSpeed && value <=(maxSpeed-startSpeed)/3f)
                 TargetCam = "Speed1";
             else if (value > (maxSpeed-startSpeed)/2f && value <= maxSpeed)
+            {
+               
                 TargetCam = "Speed2";
+            }
             
             
 
@@ -53,6 +57,8 @@ public class LevelMover : Singleton<LevelMover>
             if(value != targetCam && !ParachuteBool && !PreParachuteBool)
             {
                 InputCameraController.Instance.SetLiveCam(value);
+                //toggle Trails if max speed or previous
+                trailEvent.Invoke();
             }
             targetCam = value;
 

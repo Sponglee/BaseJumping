@@ -6,7 +6,7 @@ using Cinemachine;
 public class InputCameraController : Singleton<InputCameraController>
 {
 
-    [SerializeField] private CinemachineVirtualCamera liveCam;
+    public CinemachineVirtualCamera liveCam;
     [Header("")]
 
     //DEBUG

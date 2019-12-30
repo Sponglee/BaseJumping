@@ -94,7 +94,8 @@ public static class ScoreSystem
     {
         while (!LevelMover.instance.ParachuteBool)
         {
-            IncreaseMultiplier();
+            if(LevelMover.instance.Moving)
+                IncreaseMultiplier();
 
             yield return new WaitForSeconds(multiplierCoolDown);
         }
