@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class LevelMover : Singleton<LevelMover>
 {
     public static LevelMover instance;
+
     public static UnityEvent trailEvent = new UnityEvent();
+    public static UnityEvent altmeterUpdateEvent = new UnityEvent();
 
     [Header("Speed Values")]
     public float startSpeed = 1f;
@@ -77,7 +79,8 @@ public class LevelMover : Singleton<LevelMover>
 
     private float groundStartAltitude;
 
-    public Slider altmeter;
+    public float altitudeRatio;
+
 
     public bool Moving = false;
     public bool PreParachuteBool = false;
@@ -103,7 +106,7 @@ public class LevelMover : Singleton<LevelMover>
     private void FixedUpdate()
     {
         if(Moving)
-            UpdateAltmeter();
+            UpdateHeight();
 
         if(levelSpeed != startSpeed)
         {
@@ -121,9 +124,11 @@ public class LevelMover : Singleton<LevelMover>
         Instantiate(segmentPrefs[Random.Range(0,segmentPrefs.Length)], spawnPoint.position + Vector3.up*offset, Quaternion.identity,spawnPoint);
     }
 
-    public void UpdateAltmeter()
+    public void UpdateHeight()
     {
-        altmeter.value = groundHolder.position.y/groundStartAltitude;
+        altitudeRatio = groundHolder.position.y/groundStartAltitude;
+        
+        altmeterUpdateEvent.Invoke();
     }
 
     public void SpeedIncrease()
@@ -149,7 +154,7 @@ public class LevelMover : Singleton<LevelMover>
     public void ResetPosition()
     {
         Debug.Log("REE");
-        LevelMover.Instance.Moving = false;
+        Moving = false;
 
         InputCameraController.Instance.parachuteSlowCam.m_Follow.gameObject.SetActive(false);
         
