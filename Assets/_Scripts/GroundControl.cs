@@ -11,31 +11,16 @@ public class GroundControl : MonoBehaviour
             //Landed with parachute opened
             if (LevelMover.Instance.ParachuteBool)
             {
-                LevelMover.Instance.ResetPosition();
-                LevelMover.Instance.ParachuteBool = false;
-                GameManager.Instance.SpawnPoof(Vector3.up);
-                GameManager.Instance.SpawnFireWork(other.transform.position + Vector3.up*2f);
-
-                InputCameraController.Instance.SetLiveCam("Finish");
-                FunctionHandler.Instance.LevelComplete("LEVEL COMPLETE");
-
-                GameManager.Instance.SpawnEndFireWork();
+                GameManager.Instance.GameWin(other.transform);
             }
             else
             {
-                LevelMover.Instance.Moving = false;
-                LevelMover.Instance.ParachuteBool = false;
-                GameManager.Instance.SpawnPoof(Vector3.up);
-                ScoreSystem.ResetMultiplier();
-                Destroy(PlayerMover.Instance.gameObject);
-                
-                InputCameraController.Instance.SetLiveCam("Normal");
-                FunctionHandler.Instance.LevelComplete("GAME OVER");
-
+                GameManager.Instance.GameOver();
 
             }
-
-            
         }
     }
+
 }
+
+            

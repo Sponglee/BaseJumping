@@ -43,7 +43,7 @@ public class RadAltmeterBehaviour : MonoBehaviour
     {
         //Calculate arrow rotation depending on height from levelMover 
 
-        Debug.Log(altmeterScale * LevelMover.instance.altitudeRatio);
+        //Debug.Log(altmeterScale * LevelMover.instance.altitudeRatio);
 
         arrow.eulerAngles = new Vector3(0, 0, altmeterScale * LevelMover.instance.altitudeRatio);
     }

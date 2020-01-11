@@ -91,4 +91,6 @@ public class PlayerMover : Singleton<PlayerMover>
         trailHolder.gameObject.SetActive(false);
         LevelMover.trailEvent.AddListener(EnableTrail);
     }
+
+    
 }

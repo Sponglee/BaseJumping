@@ -84,4 +84,33 @@ public class GameManager : Singleton<GameManager>
     {
         Instantiate(endFireWorksPref, InputCameraController.Instance.liveCam.transform);
     }
+
+
+    public void GameOver()
+    {
+        LevelMover.Instance.Moving = false;
+        LevelMover.Instance.ParachuteBool = false;
+        Instance.SpawnPoof(Vector3.up);
+        ScoreSystem.ResetMultiplier();
+        Destroy(PlayerMover.Instance.gameObject);
+
+        InputCameraController.Instance.SetLiveCam("Normal");
+        FunctionHandler.Instance.LevelComplete("GAME OVER");
+    }
+
+
+     public void GameWin(Transform other)
+    {
+        LevelMover.Instance.ResetPosition();
+        LevelMover.Instance.ParachuteBool = false;
+        GameManager.Instance.SpawnPoof(Vector3.up);
+        GameManager.Instance.SpawnFireWork(other.position + Vector3.up * 2f);
+
+        InputCameraController.Instance.SetLiveCam("Finish");
+        FunctionHandler.Instance.LevelComplete("LEVEL COMPLETE");
+
+        GameManager.Instance.SpawnEndFireWork();
+    }
+
+
 }

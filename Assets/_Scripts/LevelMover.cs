@@ -16,7 +16,7 @@ public class LevelMover : Singleton<LevelMover>
     public float maxSpeed = 1.5f;
     public float speedDecreaseRate = 0.1f;
     public float speedIncreaseRate = 0.2f;
-
+    public int speedLevel = 1;
     [SerializeField] private float levelSpeed = 1f;
     public float LevelSpeed
     {
@@ -31,13 +31,20 @@ public class LevelMover : Singleton<LevelMover>
             
             //Debug.Log("CHANGED");
         
+
             if (value == startSpeed)
-                TargetCam = "Speed";
-            else if (value > startSpeed && value <=(maxSpeed-startSpeed)/3f)
-                TargetCam = "Speed1";
-            else if (value > (maxSpeed-startSpeed)/2f && value <= maxSpeed)
             {
-               
+                speedLevel = 1;
+                TargetCam = "Speed";
+            }
+            else if (value > startSpeed && value <=(maxSpeed-startSpeed)/3f)
+            {
+                speedLevel = 2;
+                TargetCam = "Speed1";
+            }
+            else if (value > (maxSpeed-startSpeed)/3f && value <= maxSpeed)
+            {
+                speedLevel = 3;
                 TargetCam = "Speed2";
             }
             
