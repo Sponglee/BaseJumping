@@ -33,7 +33,7 @@ public class RadAltmeterBehaviour : MonoBehaviour
             }
             else
             {
-                yellowZone.fillAmount = ((LevelMover.Instance.groundHolder.transform.position.y - item.transform.position.y) / LevelMover.Instance.groundHolder.position.y) + redZone.fillAmount;
+                yellowZone.fillAmount = ((LevelMover.Instance.groundHolder.transform.position.y - item.transform.position.y) / LevelMover.Instance.groundHolder.position.y) /*+ redZone.fillAmount*/;
             }
         }
     }
