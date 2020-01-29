@@ -8,6 +8,7 @@ public class ObstacleCollider : MonoBehaviour
     {
         if(other.transform.CompareTag("Player"))
         {
+            Debug.Log("HERE TOO?");
             GameManager.Instance.GameOver();
         }
     }

@@ -12,6 +12,7 @@ public class PlayerMover : Singleton<PlayerMover>
     public Transform preParachuteHolder;
     public Transform trailHolder;
 
+    
     //[SerializeField] private Joystick joystick;
 
     [Header("MovementControls")]
@@ -20,7 +21,6 @@ public class PlayerMover : Singleton<PlayerMover>
     [SerializeField] private float xBound = 1f;
     [SerializeField] private float zBound = 1f;
     [SerializeField] private float moveResistance = 0.2f;
-
 
     private void Start()
     {

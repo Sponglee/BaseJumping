@@ -8,16 +8,23 @@ public class GroundControl : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
+            //Disable skip button
+            FunctionHandler.Instance.SkipToggle();
+
             //Landed with parachute opened
             if (LevelMover.Instance.ParachuteBool)
             {
                 GameManager.Instance.GameWin(other.transform);
+                
             }
             else
             {
+                Debug.Log("HERE?");
                 GameManager.Instance.GameOver();
 
             }
+
+
         }
     }
 

@@ -97,10 +97,15 @@ public class LevelMover : Singleton<LevelMover>
     public Vector3 offsetDir;
 
 
+    private void Awake()
+    {
+        instance = Instance;
+    }
+
 
     private void Start()
     {
-        instance = Instance;
+        
 
         groundStartAltitude = groundHolder.transform.position.y;
         for (int i = 0; i < levelLayers; i++)
@@ -158,14 +163,14 @@ public class LevelMover : Singleton<LevelMover>
 
 
 
-    public void ResetPosition()
+    public void ResetGroundPosition()
     {
         Debug.Log("REE");
         Moving = false;
 
         InputCameraController.Instance.parachuteSlowCam.m_Follow.gameObject.SetActive(false);
         
-        groundHolder.position = new Vector3(groundHolder.position.x,PlayerMover.Instance.charachterTransform.position.y, groundHolder.position.z);
+        groundHolder.position = new Vector3(0,PlayerMover.Instance.charachterTransform.position.y, 0);
         //other.transform.position += Vector3.up * 0.5f;
     }
 }

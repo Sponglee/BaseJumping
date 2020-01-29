@@ -123,9 +123,12 @@ public class RingPuller : MonoBehaviour
             LevelMover.instance.ParachuteBool = true;
             LevelMover.Instance.ResetSpeed();
             InputCameraController.Instance.SetLiveCam("ParachuteSlow");
-            FunctionHandler.Instance.ResetPlayerPosition();
+            FunctionHandler.Instance.ResetPlayerRotation();
             PlayerMover.Instance.DisableTrail();
+
+            FunctionHandler.Instance.SkipToggle();
         }
+     
     }
 
     //Player clicks to speed up

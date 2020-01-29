@@ -20,6 +20,7 @@ public class FunctionHandler : Singleton<FunctionHandler>
     public GameObject playButton;
     public GameObject restartMenuButton;
     public GameObject resumeMenuButton;
+    public GameObject parachuteSkipButton;
 
     public void ToggleCanvas(string targetName)
     {
@@ -68,9 +69,9 @@ public class FunctionHandler : Singleton<FunctionHandler>
         SceneManager.LoadScene("Main");
     }
 
-    public void ResetPlayerPosition()
+    public void ResetPlayerRotation()
     {
-        model.localEulerAngles = new Vector3(-90f,transform.eulerAngles.y,0);
+        PlayerMover.Instance.model.localEulerAngles = new Vector3(-90f,0,0);
     }
 
 
@@ -96,4 +97,14 @@ public class FunctionHandler : Singleton<FunctionHandler>
         StartCoroutine(ScoreSystem.StopEvaluateScore());
     }
    
+
+    public void SkipToggle()
+    {
+        parachuteSkipButton.SetActive(!parachuteSkipButton.activeSelf);
+    }
+
+    public void ParachuteSkip()
+    {
+        LevelMover.Instance.ResetGroundPosition();
+    }
 }

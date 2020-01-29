@@ -101,15 +101,16 @@ public class GameManager : Singleton<GameManager>
 
      public void GameWin(Transform other)
     {
-        LevelMover.Instance.ResetPosition();
+        LevelMover.Instance.ResetGroundPosition();
         LevelMover.Instance.ParachuteBool = false;
-        GameManager.Instance.SpawnPoof(Vector3.up);
-        GameManager.Instance.SpawnFireWork(other.position + Vector3.up * 2f);
+        Instance.SpawnPoof(Vector3.up);
+        SpawnFireWork(other.position + Vector3.up * 2f);
 
+        FunctionHandler.Instance.ResetPlayerRotation();
         InputCameraController.Instance.SetLiveCam("Finish");
         FunctionHandler.Instance.LevelComplete("LEVEL COMPLETE");
 
-        GameManager.Instance.SpawnEndFireWork();
+        SpawnEndFireWork();
     }
 
 
