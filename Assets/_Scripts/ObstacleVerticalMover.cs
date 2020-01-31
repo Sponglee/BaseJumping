@@ -39,7 +39,7 @@ public class ObstacleVerticalMover : MonoBehaviour
             Destroy(gameObject);
 
             //DEBUG SPAWN
-            if(!LevelMover.instance.YellowZoneBool)
+            if(!LevelMover.instance.YellowZoneBool && transform.CompareTag("Respawnable"))
                 LevelMover.instance.SpawnSegment();
 
             //Invoke spawn event in LevelMover._levelMover

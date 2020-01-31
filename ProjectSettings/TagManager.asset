@@ -9,6 +9,7 @@ TagManager:
   - Vcam
   - ParachuteTrigger
   - Obstacle
+  - Respawnable
   layers:
   - Default
   - TransparentFX
