@@ -10,6 +10,8 @@ TagManager:
   - ParachuteTrigger
   - Obstacle
   - Respawnable
+  - Goal
+  - Cloud
   layers:
   - Default
   - TransparentFX

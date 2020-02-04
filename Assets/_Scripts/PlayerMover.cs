@@ -8,6 +8,8 @@ public class PlayerMover : Singleton<PlayerMover>
     public Transform charachterTransform;
     public InputManager _inputManager;
 
+    public InputManager[] inputManagers;
+
     public Transform parachuteHolder;
     public Transform preParachuteHolder;
     public Transform trailHolder;
@@ -25,6 +27,9 @@ public class PlayerMover : Singleton<PlayerMover>
     private void Start()
     {
         LevelMover.trailEvent.AddListener(EnableTrail);
+
+        RingPuller.parachuteDeployed.AddListener(SwitchMovement);
+       
     }
 
     // Update is called once per frame
@@ -34,14 +39,20 @@ public class PlayerMover : Singleton<PlayerMover>
         {
 
             //Offset valute to head to the target
-            LevelMover.instance.offsetDir = new Vector3((charachterTransform.position - LevelMover.instance.groundTarget.position).normalized.x,
+            Vector3 targetDirection = new Vector3((charachterTransform.position - LevelMover.instance.groundTarget.position).normalized.x,
                                                 0, (charachterTransform.position - LevelMover.instance.groundTarget.position).normalized.z);
+
+            Vector3 controlDirection = new Vector3(-_inputManager.charInput.x, 
+                                                   _inputManager.charInput.z / 2, 
+                                                   _inputManager.charInput.z);
+
+
+            LevelMover.instance.offsetDir = targetDirection + controlDirection;
            
-            //Click to Speed up clicks
-            if(Input.GetMouseButtonDown(0))
-            {
-                RingPuller.ringPullSpeedUp.Invoke();    
-            }
+
+
+            //Orientate model
+
 
         }
         else if (LevelMover.instance.Moving)
@@ -74,7 +85,8 @@ public class PlayerMover : Singleton<PlayerMover>
         GetComponent<GlidingInputManager>().enabled = false;
         ParachuteInputManager parachute = GetComponent<ParachuteInputManager>();
 
-
+        model.SetParent(parachuteHolder);
+        //model = parachuteHolder;
         parachute.enabled = true;
         parachute.joystick.gameObject.SetActive(true);
         _inputManager = parachute;

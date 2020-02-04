@@ -16,7 +16,7 @@ public class LevelMover : Singleton<LevelMover>
     public float maxSpeed = 1.5f;
     public float speedDecreaseRate = 0.1f;
     public float speedIncreaseRate = 0.2f;
-    public int speedLevel = 1;
+    public int speedRate = 1;
     [SerializeField] private float levelSpeed = 1f;
     public float LevelSpeed
     {
@@ -34,17 +34,17 @@ public class LevelMover : Singleton<LevelMover>
 
             if (value == startSpeed)
             {
-                speedLevel = 1;
+                speedRate = 1;
                 TargetCam = "Speed";
             }
             else if (value > startSpeed && value <=(maxSpeed-startSpeed)/3f)
             {
-                speedLevel = 2;
+                speedRate = 2;
                 TargetCam = "Speed1";
             }
             else if (value > (maxSpeed-startSpeed)/3f && value <= maxSpeed)
             {
-                speedLevel = 3;
+                speedRate = 3;
                 TargetCam = "Speed2";
             }
             
@@ -75,11 +75,9 @@ public class LevelMover : Singleton<LevelMover>
     }
 
 
-    public float spawnOffset = 700f;
-    public float levelLayers = 15f;
 
+    public ContentSpawner contentSpawnerRef;
 
-    public Transform spawnPoint;
     public Transform groundHolder;
     public Transform groundTarget;
     public Transform noReturn;
@@ -97,6 +95,9 @@ public class LevelMover : Singleton<LevelMover>
     public Vector3 offsetDir;
 
 
+
+   
+
     private void Awake()
     {
         instance = Instance;
@@ -108,12 +109,13 @@ public class LevelMover : Singleton<LevelMover>
         
 
         groundStartAltitude = groundHolder.transform.position.y;
-        for (int i = 0; i < levelLayers; i++)
-        {
-            SpawnSegment(spawnOffset*i);
-        }
+       
        
     }
+
+
+   
+
 
     private void FixedUpdate()
     {
@@ -125,16 +127,17 @@ public class LevelMover : Singleton<LevelMover>
             levelSpeed -= speedDecreaseRate;
             LevelSpeed = Mathf.Clamp(levelSpeed, startSpeed, maxSpeed);
         }
+
+
+
+        if(Input.GetMouseButtonDown(2))
+        {
+            DebugParachute();
+        }
     }
 
-    //DEBUG SPAWN
-    public GameObject[] segmentPrefs;
+    
 
-
-    public void SpawnSegment(float offset = 0f)
-    {
-        Instantiate(segmentPrefs[Random.Range(0,segmentPrefs.Length)], spawnPoint.position + Vector3.up*offset, Quaternion.identity,spawnPoint);
-    }
 
     public void UpdateHeight()
     {
@@ -163,14 +166,24 @@ public class LevelMover : Singleton<LevelMover>
 
 
 
-    public void ResetGroundPosition()
+    public void StopMoving()
     {
         Debug.Log("REE");
         Moving = false;
 
         InputCameraController.Instance.parachuteSlowCam.m_Follow.gameObject.SetActive(false);
         
-        groundHolder.position = new Vector3(0,PlayerMover.Instance.charachterTransform.position.y, 0);
+        //groundHolder.position = new Vector3(0,PlayerMover.Instance.charachterTransform.position.y, 0);
         //other.transform.position += Vector3.up * 0.5f;
+    }
+
+
+
+
+    public void DebugParachute()
+    {
+        groundHolder.position = new Vector3(groundHolder.position.x, GameObject.Find("1YellowZoneBoundary").transform.position.y, groundHolder.position.z);
+        levelSpeed = maxSpeed;
+
     }
 }

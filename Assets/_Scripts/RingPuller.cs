@@ -10,6 +10,8 @@ public class RingPuller : MonoBehaviour
     //Update ui even (0 - multiplier, 1 - score)
     public static UnityEvent ringPullSpeedUp = new UnityEvent();
 
+    public static UnityEvent parachuteDeployed = new UnityEvent();
+
     public Image parachutePullSlider;
 
 
@@ -89,6 +91,7 @@ public class RingPuller : MonoBehaviour
 
         PlayerMover.Instance.preParachuteHolder.gameObject.SetActive(true);
         StartCoroutine(StopRingPulled());
+
     }
    
     public void StopTimer()
@@ -108,12 +111,12 @@ public class RingPuller : MonoBehaviour
 
         }
 
-        PullRingFinished();
+        PullRingComplete();
        
     }
 
     //Parachute pulled out 
-    public void PullRingFinished()
+    public void PullRingComplete()
     {
         if (PlayerMover.Instance != null)
         {
@@ -126,7 +129,9 @@ public class RingPuller : MonoBehaviour
             FunctionHandler.Instance.ResetPlayerRotation();
             PlayerMover.Instance.DisableTrail();
 
-            FunctionHandler.Instance.SkipToggle();
+            parachuteDeployed.Invoke();
+
+            //FunctionHandler.Instance.SkipToggle();
         }
      
     }

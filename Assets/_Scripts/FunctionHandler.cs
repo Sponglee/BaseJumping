@@ -105,6 +105,6 @@ public class FunctionHandler : Singleton<FunctionHandler>
 
     public void ParachuteSkip()
     {
-        LevelMover.Instance.ResetGroundPosition();
+        LevelMover.Instance.StopMoving();
     }
 }

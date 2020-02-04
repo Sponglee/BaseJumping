@@ -30,7 +30,7 @@ public class GameManager : Singleton<GameManager>
     {
         SpawnFireWork(PlayerMover.Instance.charachterTransform.position - Vector3.up * 10f);
 
-        Destroy(triggeredGoal.gameObject);
+        triggeredGoal.gameObject.GetComponent<Renderer>().enabled = false;
        
         LevelMover.Instance.SpeedIncrease();
 
@@ -101,16 +101,20 @@ public class GameManager : Singleton<GameManager>
 
      public void GameWin(Transform other)
     {
-        LevelMover.Instance.ResetGroundPosition();
+        LevelMover.Instance.StopMoving();
         LevelMover.Instance.ParachuteBool = false;
         Instance.SpawnPoof(Vector3.up);
         SpawnFireWork(other.position + Vector3.up * 2f);
 
+        PlayerMover.Instance.model.SetParent(PlayerMover.Instance.charachterTransform);
         FunctionHandler.Instance.ResetPlayerRotation();
+
         InputCameraController.Instance.SetLiveCam("Finish");
         FunctionHandler.Instance.LevelComplete("LEVEL COMPLETE");
 
         SpawnEndFireWork();
+
+        //check for target 
     }
 
 

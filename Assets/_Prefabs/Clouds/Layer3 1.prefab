@@ -1911,7 +1911,7 @@ GameObject:
   - component: {fileID: -2732455047630744948}
   m_Layer: 0
   m_Name: Layer3 1
-  m_TagString: Respawnable
+  m_TagString: Cloud
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1925,7 +1925,7 @@ Transform:
   m_GameObject: {fileID: 6128207023891460084}
   m_LocalRotation: {x: -0, y: -0.70710707, z: -0, w: 0.70710653}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1.6}
   m_Children:
   - {fileID: 954424880404241776}
   - {fileID: 954424879624199392}

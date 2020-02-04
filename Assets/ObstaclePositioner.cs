@@ -12,7 +12,7 @@ public class ObstaclePositioner : MonoBehaviour
         //Randomize direction
         transform.GetChild(0).eulerAngles = new Vector3(0, 90f * Random.Range(0, 4), 0);
         transform.GetChild(0).localPosition += transform.GetChild(0).forward*spawnLocation.z;
-        transform.GetChild(0).localPosition += -Vector3.up * speedOffset * LevelMover.instance.speedLevel;
+        transform.GetChild(0).localPosition += -Vector3.up * speedOffset * LevelMover.instance.speedRate;
     }
 
     

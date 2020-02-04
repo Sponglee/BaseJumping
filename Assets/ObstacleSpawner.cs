@@ -15,7 +15,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(StopSpawnObstacle());
+        //StartCoroutine(StopSpawnObstacle());
     }
 
 
