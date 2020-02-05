@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class AltmeterBehaviour : MonoBehaviour
 {
 
+    public Slider altmeter;
+
     public RectTransform yellowZone;
     public RectTransform redZone;
 
@@ -16,6 +18,7 @@ public class AltmeterBehaviour : MonoBehaviour
     {
         SetUpZones();
         transform.parent.gameObject.SetActive(false);
+        LevelMover.altmeterUpdateEvent.AddListener(AltmeterUpdateSlider);
     }
 
     public void SetUpZones()
@@ -57,6 +60,14 @@ public class AltmeterBehaviour : MonoBehaviour
        
     }
 
+    public void AltmeterUpdateSlider ()
+    {
+        //Calculate arrow rotation depending on height from levelMover 
 
-   
+        //Debug.Log(altmeterScale * LevelMover.instance.altitudeRatio);
+
+       altmeter.value  = LevelMover.instance.altitudeRatio;
+    }
+
+
 }

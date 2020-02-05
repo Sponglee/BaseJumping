@@ -14,7 +14,11 @@ public class PlayerMover : Singleton<PlayerMover>
     public Transform preParachuteHolder;
     public Transform trailHolder;
 
-    
+    //Parachute control constraints
+    public Vector2 parachuteAngleConstraintsX;
+    public Vector2 parachuteAngleConstraintsZ;
+    public float controlMultiplier = 5f;
+
     //[SerializeField] private Joystick joystick;
 
     [Header("MovementControls")]
@@ -39,8 +43,8 @@ public class PlayerMover : Singleton<PlayerMover>
         {
 
             //Offset valute to head to the target
-            Vector3 targetDirection = new Vector3((charachterTransform.position - LevelMover.instance.groundTarget.position).normalized.x,
-                                                0, (charachterTransform.position - LevelMover.instance.groundTarget.position).normalized.z);
+            Vector3 targetDirection = new Vector3((charachterTransform.position - LevelMover.instance.groundTarget.GetChild(0).position).normalized.x,
+                                                0, (charachterTransform.position - LevelMover.instance.groundTarget.GetChild(0).position).normalized.z);
 
             Vector3 controlDirection = new Vector3(-_inputManager.charInput.x, 
                                                    _inputManager.charInput.z / 2, 
@@ -48,11 +52,19 @@ public class PlayerMover : Singleton<PlayerMover>
 
 
             LevelMover.instance.offsetDir = targetDirection + controlDirection;
-           
+
 
 
             //Orientate model
 
+            parachuteHolder.eulerAngles = new Vector3(Mathf.Clamp(controlDirection.z*controlMultiplier, parachuteAngleConstraintsX.x, parachuteAngleConstraintsX.y),
+                                                        0,
+                                                        Mathf.Clamp(controlDirection.x * controlMultiplier, parachuteAngleConstraintsZ.x, parachuteAngleConstraintsZ.y));
+
+
+
+            //Quaternion currentRotation = Quaternion.LookRotation(parachuteHolder.forward + new Vector3(controlDirection.x, controlDirection.z, 0).normalized, Vector3.up);
+            //parachuteHolder.rotation = Quaternion.Lerp(parachuteHolder.rotation, currentRotation, rotationSpeed * Time.deltaTime);
 
         }
         else if (LevelMover.instance.Moving)
@@ -85,7 +97,11 @@ public class PlayerMover : Singleton<PlayerMover>
         GetComponent<GlidingInputManager>().enabled = false;
         ParachuteInputManager parachute = GetComponent<ParachuteInputManager>();
 
-        model.SetParent(parachuteHolder);
+        //Set model to parachute's pivot for movement rotation
+        model.SetParent(parachuteHolder.GetChild(0));
+        model.localPosition = Vector3.zero;
+
+
         //model = parachuteHolder;
         parachute.enabled = true;
         parachute.joystick.gameObject.SetActive(true);

@@ -71,7 +71,10 @@ public class FunctionHandler : Singleton<FunctionHandler>
 
     public void ResetPlayerRotation()
     {
+        Vector3 tmpPos = PlayerMover.Instance.model.position;
+
         PlayerMover.Instance.model.localEulerAngles = new Vector3(-90f,0,0);
+        PlayerMover.Instance.model.position = new Vector3(tmpPos.x, 0f, tmpPos.z);
     }
 
 

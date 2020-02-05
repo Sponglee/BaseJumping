@@ -14,6 +14,7 @@ public class GroundControl : MonoBehaviour
             //Landed with parachute opened
             if (LevelMover.Instance.ParachuteBool)
             {
+                
                 GameManager.Instance.GameWin(other.transform);
                 
             }

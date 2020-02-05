@@ -182,7 +182,7 @@ public class LevelMover : Singleton<LevelMover>
 
     public void DebugParachute()
     {
-        groundHolder.position = new Vector3(groundHolder.position.x, GameObject.Find("1YellowZoneBoundary").transform.position.y, groundHolder.position.z);
+        groundHolder.position = new Vector3(groundHolder.position.x, -450, groundHolder.position.z);
         levelSpeed = maxSpeed;
 
     }

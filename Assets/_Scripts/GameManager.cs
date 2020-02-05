@@ -30,7 +30,8 @@ public class GameManager : Singleton<GameManager>
     {
         SpawnFireWork(PlayerMover.Instance.charachterTransform.position - Vector3.up * 10f);
 
-        triggeredGoal.gameObject.GetComponent<Renderer>().enabled = false;
+        //Get goal's model component
+        triggeredGoal.gameObject.transform.GetChild(0).GetComponent<Renderer>().enabled = false;
        
         LevelMover.Instance.SpeedIncrease();
 
@@ -82,7 +83,7 @@ public class GameManager : Singleton<GameManager>
 
     public void SpawnEndFireWork()
     {
-        Instantiate(endFireWorksPref, InputCameraController.Instance.liveCam.transform);
+        Instantiate(endFireWorksPref, PlayerMover.Instance.transform);
     }
 
 
@@ -108,7 +109,7 @@ public class GameManager : Singleton<GameManager>
 
         PlayerMover.Instance.model.SetParent(PlayerMover.Instance.charachterTransform);
         FunctionHandler.Instance.ResetPlayerRotation();
-
+        
         InputCameraController.Instance.SetLiveCam("Finish");
         FunctionHandler.Instance.LevelComplete("LEVEL COMPLETE");
 

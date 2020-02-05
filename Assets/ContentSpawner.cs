@@ -46,6 +46,8 @@ public class ContentSpawner : Singleton<ContentSpawner>
 
     public void SpawnGoalLayer()
     {
+        Debug.Log(lastLayerIndex);
+        Debug.Log(" ==== " + (layersHolder.position - Vector3.up * lastLayerIndex * layerOffset));
        Instantiate(goalPrefab, layersHolder.position - Vector3.up * lastLayerIndex*layerOffset, Quaternion.identity, layersHolder);
     }
 
