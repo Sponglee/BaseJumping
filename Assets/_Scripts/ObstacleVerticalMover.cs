@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ObstacleVerticalMover : MonoBehaviour
 {
+
+
     //private LevelMover LevelMover._levelMover;
     [SerializeField] private float speedModifier = 1f;
     public float SpeedModifier
@@ -26,7 +28,7 @@ public class ObstacleVerticalMover : MonoBehaviour
     {
         if(LevelMover.instance.Moving)
         {
-            transform.Translate((Vector3.up + LevelMover.instance.offsetDir) * LevelMover.instance.LevelSpeed*SpeedModifier);
+            transform.Translate(Vector3.up * LevelMover.instance.LevelSpeed * SpeedModifier + LevelMover.instance.offsetDir);
         }
     }
 

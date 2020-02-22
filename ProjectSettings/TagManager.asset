@@ -12,6 +12,7 @@ TagManager:
   - Respawnable
   - Goal
   - Cloud
+  - PlayerBoundary
   layers:
   - Default
   - TransparentFX

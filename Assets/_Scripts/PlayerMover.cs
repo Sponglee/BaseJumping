@@ -28,6 +28,16 @@ public class PlayerMover : Singleton<PlayerMover>
     [SerializeField] private float zBound = 1f;
     [SerializeField] private float moveResistance = 0.2f;
 
+    public BoundarySide boundaryReached=BoundarySide.None;
+
+    public enum BoundarySide // your custom enumeration
+    {
+        None,
+        BoundaryX,
+        BoundaryZ
+    };
+
+
     private void Start()
     {
         LevelMover.trailEvent.AddListener(EnableTrail);
@@ -74,12 +84,23 @@ public class PlayerMover : Singleton<PlayerMover>
                 charachterTransform.localPosition.y,
                 Mathf.Clamp(charachterTransform.localPosition.z, -zBound, zBound));
 
-            if (Mathf.Abs(charachterTransform.localPosition.x) > moveResistance || Mathf.Abs(charachterTransform.localPosition.z) > 0.2f)
+            if(boundaryReached == BoundarySide.BoundaryX)
+            {
+                LevelMover.instance.offsetDir = new Vector3(0, 0, -sideSpeed * charachterTransform.localPosition.z);
+            }
+            else if(boundaryReached == BoundarySide.BoundaryZ)
+            {
+                LevelMover.instance.offsetDir = new Vector3(-sideSpeed* charachterTransform.localPosition.x, 0, 0);
+            }
+            else if ((Mathf.Abs(charachterTransform.localPosition.x) > moveResistance || Mathf.Abs(charachterTransform.localPosition.z) > 0.2f))
             {
                 //Debug.Log("MOVE");
                 LevelMover.instance.offsetDir = -(sideSpeed * charachterTransform.localPosition);
             }
-
+            else
+            {
+                LevelMover.instance.offsetDir = Vector3.zero;
+            }
 
             //Orientate model
             Vector3 diff = -((Camera.main.transform.position + LevelMover.instance.offsetDir * 10f) /*+ LevelMover._levelMover.offsetDir.normalized*/);
@@ -120,5 +141,6 @@ public class PlayerMover : Singleton<PlayerMover>
         LevelMover.trailEvent.AddListener(EnableTrail);
     }
 
-    
+
+  
 }
