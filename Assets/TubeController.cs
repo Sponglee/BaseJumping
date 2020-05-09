@@ -23,8 +23,8 @@ public class TubeController : MonoBehaviour
             PlayerMover.Instance.transform.localPosition = Vector3.zero;
             PlayerMover.Instance.charachterTransform.localPosition = Vector3.zero;
             PlayerMover.Instance.playerOffset = Vector3.zero;
+            PlayerMover.Instance.inputManager.enabled = false;
             PlayerMover.Instance.inputManager = PlayerMover.Instance.inputManagers[2];
-
             LevelMover.Instance.startSpeed = 0f;
             LevelMover.Instance.LevelSpeed = 0f;
             vcam.Priority = 999;
@@ -35,12 +35,16 @@ public class TubeController : MonoBehaviour
 
     private IEnumerator StartMoving()
     {
-        
-        while(cart.m_Position < cart.m_Path.MaxPos)
+        Vector3 startPos = transform.position;
+        Vector3 endPos =Vector3.zero;
+
+        while (cart.m_Position < cart.m_Path.MaxPos)
         {
-            transform.Translate(Vector3.up * 0.125f);
+            transform.position = Vector3.Lerp(startPos, endPos, cart.m_Position / cart.m_Path.MaxPos);
             yield return null;
         }
+
+        //transform.Translate(Vector3.up*55f);
         ReturnToNormal();
     }
 
@@ -51,6 +55,7 @@ public class TubeController : MonoBehaviour
         PlayerMover.Instance.charachterTransform.localPosition = Vector3.zero;
         PlayerMover.Instance.transform.rotation = Quaternion.Euler(Vector3.zero);
         PlayerMover.Instance.inputManager = PlayerMover.Instance.inputManagers[0];
+        PlayerMover.Instance.inputManager.enabled = true;
         LevelMover.Instance.startSpeed = 1f;
         LevelMover.Instance.LevelSpeed = 1f;
 
