@@ -95,6 +95,7 @@ public class LevelMover : Singleton<LevelMover>
     public Vector3 offsetDir;
 
 
+    private PlayerMover playerMover;
 
    
 
@@ -106,7 +107,7 @@ public class LevelMover : Singleton<LevelMover>
 
     private void Start()
     {
-        
+        playerMover = PlayerMover.Instance;
 
         groundStartAltitude = groundHolder.transform.position.y;
        
@@ -134,6 +135,9 @@ public class LevelMover : Singleton<LevelMover>
         {
             DebugParachute();
         }
+
+        offsetDir = playerMover.playerOffset;
+
     }
 
     

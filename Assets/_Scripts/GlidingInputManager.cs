@@ -15,6 +15,7 @@ public class GlidingInputManager : InputManager
         mousePos.z = 10;
 
         touchPos = Camera.main.ScreenToWorldPoint(mousePos) /*- holder.position*/;
+
         if (Input.GetMouseButtonDown(0))
         {
             delta = (touchPos - playerMover.position);

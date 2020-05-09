@@ -6,7 +6,7 @@ public class PlayerMover : Singleton<PlayerMover>
 {
     public Transform model;
     public Transform charachterTransform;
-    public InputManager _inputManager;
+    public InputManager inputManager;
 
     public InputManager[] inputManagers;
 
@@ -29,6 +29,7 @@ public class PlayerMover : Singleton<PlayerMover>
     [SerializeField] private float moveResistance = 0.2f;
     public float speedModifier = 1;
 
+    public Vector3 playerOffset;
 
     public BoundarySide boundaryReached=BoundarySide.None;
 
@@ -58,12 +59,12 @@ public class PlayerMover : Singleton<PlayerMover>
             Vector3 targetDirection = new Vector3((charachterTransform.position - LevelMover.instance.groundTarget.GetChild(0).position).normalized.x,
                                                 0, (charachterTransform.position - LevelMover.instance.groundTarget.GetChild(0).position).normalized.z);
 
-            Vector3 controlDirection = new Vector3(-_inputManager.charInput.x, 
-                                                   _inputManager.charInput.z / 2, 
-                                                   _inputManager.charInput.z);
+            Vector3 controlDirection = new Vector3(-inputManager.charInput.x, 
+                                                   inputManager.charInput.z / 2, 
+                                                   inputManager.charInput.z);
 
 
-            LevelMover.instance.offsetDir = targetDirection + controlDirection;
+            playerOffset = targetDirection + controlDirection;
 
 
 
@@ -81,7 +82,7 @@ public class PlayerMover : Singleton<PlayerMover>
         }
         else if (LevelMover.instance.Moving)
         {
-            charachterTransform.localPosition = _inputManager.charInput;
+            charachterTransform.localPosition = inputManager.charInput;
             charachterTransform.localPosition = new Vector3(Mathf.Clamp(charachterTransform.localPosition.x, -xBound, xBound),
                 charachterTransform.localPosition.y,
                 Mathf.Clamp(charachterTransform.localPosition.z, -zBound, zBound));
@@ -128,7 +129,7 @@ public class PlayerMover : Singleton<PlayerMover>
         //model = parachuteHolder;
         parachute.enabled = true;
         parachute.joystick.gameObject.SetActive(true);
-        _inputManager = parachute;
+        inputManager = parachute;
     }
 
     public void EnableTrail()
