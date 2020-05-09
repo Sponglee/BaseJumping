@@ -27,6 +27,8 @@ public class PlayerMover : Singleton<PlayerMover>
     [SerializeField] private float xBound = 1f;
     [SerializeField] private float zBound = 1f;
     [SerializeField] private float moveResistance = 0.2f;
+    public float speedModifier = 1;
+
 
     public BoundarySide boundaryReached=BoundarySide.None;
 
@@ -90,7 +92,7 @@ public class PlayerMover : Singleton<PlayerMover>
             }
             else if(boundaryReached == BoundarySide.BoundaryZ)
             {
-                LevelMover.instance.offsetDir = new Vector3(-sideSpeed* charachterTransform.localPosition.x, 0, 0);
+                LevelMover.instance.offsetDir = new Vector3(-sideSpeed* charachterTransform.localPosition.x, 0, 0)*speedModifier;
             }
             else if ((Mathf.Abs(charachterTransform.localPosition.x) > moveResistance || Mathf.Abs(charachterTransform.localPosition.z) > 0.2f))
             {

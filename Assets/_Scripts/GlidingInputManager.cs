@@ -7,8 +7,7 @@ public class GlidingInputManager : InputManager
     public Vector3 delta;
     public Vector3 touchPos;
     public Transform playerMover;
-
-
+   
     private void Update()
     {
 
