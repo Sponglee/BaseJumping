@@ -28,7 +28,7 @@ public class ObstacleVerticalMover : MonoBehaviour
     {
         if(LevelMover.instance.Moving)
         {
-            transform.Translate(Vector3.up * LevelMover.instance.LevelSpeed * SpeedModifier + LevelMover.instance.offsetDir);
+            transform.Translate(Vector3.up * LevelMover.instance.LevelSpeed * SpeedModifier);
         }
     }
 
@@ -38,14 +38,19 @@ public class ObstacleVerticalMover : MonoBehaviour
     {
         if(other.CompareTag("Boundary"))
         {
-            Destroy(gameObject);
-
-            //DEBUG SPAWN
-            if (!LevelMover.instance.YellowZoneBool && transform.CompareTag("Cloud"))
-                LevelMover.instance.contentSpawnerRef.SpawnClouds();
-            else if (!LevelMover.instance.YellowZoneBool && transform.CompareTag("Goal"))
-                LevelMover.instance.contentSpawnerRef.SpawnGoal();
-            //Invoke spawn event in LevelMover._levelMover
+            BoundaryAction();
         }
+    }
+
+    protected virtual void BoundaryAction()
+    {
+        Destroy(gameObject);
+
+        //DEBUG SPAWN
+        if (!LevelMover.instance.YellowZoneBool && transform.CompareTag("Cloud"))
+            LevelMover.instance.contentSpawnerRef.SpawnClouds();
+        else if (!LevelMover.instance.YellowZoneBool && transform.CompareTag("Goal"))
+            LevelMover.instance.contentSpawnerRef.SpawnGoal();
+        //Invoke spawn event in LevelMover._levelMover
     }
 }

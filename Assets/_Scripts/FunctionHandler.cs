@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class FunctionHandler : Singleton<FunctionHandler>
 {
+    public class LevelStartEvent : UnityEvent { }
+    public static LevelStartEvent OnLevelStart = new LevelStartEvent();
+
     public Canvas ringCanvas;
     public Canvas uiCanvas;
     public Canvas menuCanvas;
@@ -58,6 +62,8 @@ public class FunctionHandler : Singleton<FunctionHandler>
     {
         ToggleCanvas("Menu");
         ToggleCanvas("UI");
+
+        OnLevelStart.Invoke();
 
         InputCameraController.Instance.SetLiveCam("Speed");
         LevelMover.Instance.Moving = true;

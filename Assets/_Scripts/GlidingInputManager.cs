@@ -22,7 +22,7 @@ public class GlidingInputManager : InputManager
         }
         else if (Input.GetMouseButton(0))
         {
-            charInput = new Vector3(touchPos.x - delta.x, 0f, touchPos.z - delta.z);
+            charInput = new Vector3(touchPos.x - delta.x, 0f, 0f*(touchPos.z - delta.z));
         }
     }
 }
