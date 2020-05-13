@@ -2,27 +2,101 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum SwipeDirection
+{
+    None = 0,
+    Left = 1,
+    Right = 2,
+    Up = 4,
+    Down = 8,
+}
+
+
 public class GlidingInputManager : InputManager
 {
-    public Vector3 delta;
-    public Vector3 touchPos;
     public Transform playerMover;
-   
+
+    public SwipeDirection Direction { set; get; }
+
+
+    private Vector3 touchPosition;
+    private Vector3 screenTouch;
+
+
+
+    [SerializeField] private float swipeResistance = 10f;
+
+
+    public bool SwipeC = true;
+    public bool swipeValue = false;
+
+
+
+
+
     private void Update()
     {
-
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 10;
-
-        touchPos = Camera.main.ScreenToWorldPoint(mousePos) /*- holder.position*/;
-
+        //Direction = SwipeDirection.None;
         if (Input.GetMouseButtonDown(0))
         {
-            delta = (touchPos - playerMover.position);
+            touchPosition = Input.mousePosition;
+            screenTouch = Camera.main.ScreenToViewportPoint(touchPosition);
         }
-        else if (Input.GetMouseButton(0))
+
+        if (Input.GetMouseButton(0))
         {
-            charInput = new Vector3(touchPos.x - delta.x, 0f, 0f /*touchPos.z - delta.z*/);
+            Vector2 deltaSwipe = touchPosition - Input.mousePosition;
+
+
+
+
+            if (Mathf.Abs(deltaSwipe.x) > Mathf.Abs(deltaSwipe.y) && Mathf.Abs(deltaSwipe.x) > swipeResistance)
+            {
+                if (deltaSwipe.x < 0)
+                {
+                    charInput = Vector3.left;
+                }
+                else if (deltaSwipe.x > 0)
+                {
+                    charInput = Vector3.right;
+                }
+            }
+            else if (Mathf.Abs(deltaSwipe.y) > Mathf.Abs(deltaSwipe.x) && Mathf.Abs(deltaSwipe.y) > swipeResistance)
+            {
+
+
+              
+               
+                //if (screenTouch.x >= 0.5)
+                //{
+
+
+                //    //Direction |= (deltaSwipe.y < 0) ? SwipeDirection.Left : SwipeDirection.Right;
+                //}
+                //else
+                //    Direction |= (deltaSwipe.y < 0) ? SwipeDirection.Right : SwipeDirection.Left;
+            }
+            else
+            {
+                charInput = Vector3.zero;
+                //Direction |= SwipeDirection.None;
+            }
+            // Debug.Log(Direction);
         }
+
+    }
+
+    public bool IsSwiping(SwipeDirection dir)
+    {
+
+        return (Direction & dir) == dir;
+    }
+
+
+    public void SwipeChange()
+    {
+        swipeValue = !swipeValue;
+
     }
 }

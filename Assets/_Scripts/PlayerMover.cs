@@ -52,6 +52,7 @@ public class PlayerMover : Singleton<PlayerMover>
     // Update is called once per frame
     void Update()
     {
+        
         if((LevelMover.instance.PreParachuteBool || LevelMover.instance.ParachuteBool) && LevelMover.instance.Moving)
         {
 
@@ -85,6 +86,9 @@ public class PlayerMover : Singleton<PlayerMover>
         }
         else if (LevelMover.instance.Moving)
         {
+            Vector3 startPos = Vector3.zero;
+
+           
             charachterTransform.localPosition = inputManager.charInput;
             charachterTransform.localPosition = new Vector3(Mathf.Clamp(charachterTransform.localPosition.x, -xBound, xBound),
                 charachterTransform.localPosition.y,

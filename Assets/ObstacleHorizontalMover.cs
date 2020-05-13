@@ -6,6 +6,6 @@ public class ObstacleHorizontalMover : ObstacleMoverBase
 {
     protected override void MovingBehaviour()
     {
-        transform.Translate(LevelMover.instance.offsetDir);
+        transform.position = new Vector3(transform.position.x + LevelMover.instance.offsetDir.x, transform.position.y, transform.position.z);
     }
 }
