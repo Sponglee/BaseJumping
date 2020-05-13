@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleHorizontalMover : MonoBehaviour
+public class ObstacleHorizontalMover : ObstacleMoverBase
 {
-    // Update is called once per frame
-    void FixedUpdate()
+    protected override void MovingBehaviour()
     {
-        if (LevelMover.instance.Moving)
-        {
-            transform.Translate(LevelMover.instance.offsetDir);
-        }
+        transform.Translate(LevelMover.instance.offsetDir);
     }
-
 }

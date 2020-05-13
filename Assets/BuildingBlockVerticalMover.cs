@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuildingBlockVerticalMover : ObstacleVerticalMover
 {
-    protected override void BoundaryAction()
+    protected override void BoundaryTriggerAction()
     {
         BuildingController.OnSegmentBoundary.Invoke(transform);
     }

@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class FunctionHandler : Singleton<FunctionHandler>
 {
-    public class LevelStartEvent : UnityEvent { }
-    public static LevelStartEvent OnLevelStart = new LevelStartEvent();
+    public class LevelIsRunningEvent : UnityEvent<bool> { }
+    public static LevelIsRunningEvent OnRunningStateChange = new LevelIsRunningEvent();
 
     public Canvas ringCanvas;
     public Canvas uiCanvas;
@@ -63,10 +63,10 @@ public class FunctionHandler : Singleton<FunctionHandler>
         ToggleCanvas("Menu");
         ToggleCanvas("UI");
 
-        OnLevelStart.Invoke();
+        OnRunningStateChange.Invoke(true);
 
         InputCameraController.Instance.SetLiveCam("Speed");
-        LevelMover.Instance.Moving = true;
+       
         //model.localEulerAngles = new Vector3(90f, 90f, 0f);
     }
 

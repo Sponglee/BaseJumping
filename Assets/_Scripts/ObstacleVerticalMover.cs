@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleVerticalMover : MonoBehaviour
+public class ObstacleVerticalMover : ObstacleMoverBase
 {
 
 
@@ -21,28 +21,8 @@ public class ObstacleVerticalMover : MonoBehaviour
         }
     }
 
-   
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        if(LevelMover.instance.Moving)
-        {
-            transform.Translate(Vector3.up * LevelMover.instance.LevelSpeed * SpeedModifier);
-        }
-    }
-
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Boundary"))
-        {
-            BoundaryAction();
-        }
-    }
-
-    protected virtual void BoundaryAction()
+  
+    protected virtual void BoundaryTriggerAction()
     {
         Destroy(gameObject);
 
@@ -53,4 +33,19 @@ public class ObstacleVerticalMover : MonoBehaviour
             LevelMover.instance.contentSpawnerRef.SpawnGoal();
         //Invoke spawn event in LevelMover._levelMover
     }
+
+
+    protected override void MovingBehaviour()
+    {
+        transform.Translate(Vector3.up * LevelMover.instance.LevelSpeed * SpeedModifier);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Boundary"))
+        {
+            BoundaryTriggerAction();
+        }
+    }
+
 }

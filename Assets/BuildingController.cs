@@ -16,14 +16,15 @@ public class BuildingController : Singleton<BuildingController>
 
     private void Start()
     {
-        FunctionHandler.OnLevelStart.AddListener(StartFalling);
+        FunctionHandler.OnRunningStateChange.AddListener(SwitchToFallingPosition);
         OnSegmentBoundary.AddListener(RespawnSegment);
 
     }
 
-    public void StartFalling()
+    public void SwitchToFallingPosition(bool value)
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, flightPosition);
+        if(value == true)
+            transform.position = new Vector3(transform.position.x, transform.position.y, flightPosition);
     }
 
     private void RespawnSegment(Transform target)

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ContentSpawner : Singleton<ContentSpawner>
 {
-   
+    public AnimationCurve curve;
+
     public int lastLayerIndex= 0;
     public int lastCloudIndex = 0;
 
@@ -47,8 +48,11 @@ public class ContentSpawner : Singleton<ContentSpawner>
     public void SpawnGoalLayer()
     {
         Debug.Log(lastLayerIndex);
-        Debug.Log(" ==== " + (layersHolder.position - Vector3.up * lastLayerIndex * layerOffset));
-       Instantiate(goalPrefab, layersHolder.position - Vector3.up * lastLayerIndex*layerOffset, Quaternion.identity, layersHolder);
+        Debug.Log(" ==== " + curve.Evaluate(lastLayerIndex / cloudsCount));
+        GameObject tmpGoal = Instantiate(goalPrefab, layersHolder.position - Vector3.up * lastLayerIndex*layerOffset, Quaternion.identity, layersHolder);
+
+        tmpGoal.transform.position = new Vector3(curve.Evaluate(lastLayerIndex/cloudsCount)*100f, tmpGoal.transform.position.y, 0f);
+
     }
 
     public void SpawnCloudLayer()

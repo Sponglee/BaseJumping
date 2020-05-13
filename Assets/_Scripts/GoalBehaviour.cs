@@ -15,7 +15,7 @@ public class GoalBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(Random.Range(-spreadRadius, spreadRadius), transform.position.y, Random.Range(-spreadRadius, spreadRadius));
+        //transform.position = new Vector3(Random.Range(-spreadRadius, spreadRadius), transform.position.y, Random.Range(-spreadRadius, spreadRadius));
     }
 
 

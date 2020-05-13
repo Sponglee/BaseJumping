@@ -89,7 +89,7 @@ public class GameManager : Singleton<GameManager>
 
     public void GameOver()
     {
-        LevelMover.Instance.Moving = false;
+        LevelMover.Instance.StopMoving();
         LevelMover.Instance.ParachuteBool = false;
         Instance.SpawnPoof(Vector3.up);
         ScoreSystem.ResetMultiplier();

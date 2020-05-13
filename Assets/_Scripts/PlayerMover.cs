@@ -55,16 +55,19 @@ public class PlayerMover : Singleton<PlayerMover>
         if((LevelMover.instance.PreParachuteBool || LevelMover.instance.ParachuteBool) && LevelMover.instance.Moving)
         {
 
+            //charachterTransform.localPosition = Vector3.zero;
             //Offset valute to head to the target
-            Vector3 targetDirection = new Vector3((charachterTransform.position - LevelMover.instance.groundTarget.GetChild(0).position).normalized.x,
-                                                0, (charachterTransform.position - LevelMover.instance.groundTarget.GetChild(0).position).normalized.z);
+            Vector3 targetDirection = new Vector3((transform.position - LevelMover.instance.groundTarget.position).normalized.x,
+                                                0, (transform.position - LevelMover.instance.groundTarget.position).normalized.z);
 
-            Vector3 controlDirection = new Vector3(-inputManager.charInput.x, 
-                                                   inputManager.charInput.z / 2, 
+            //Vector3 targetDirection = Vector3.up;
+
+            Vector3 controlDirection = new Vector3(-inputManager.charInput.x,
+                                                   inputManager.charInput.z / 2,
                                                    inputManager.charInput.z);
 
 
-            playerOffset = targetDirection + controlDirection;
+            playerOffset = targetDirection /*+ controlDirection*/;
 
 
 
@@ -87,23 +90,25 @@ public class PlayerMover : Singleton<PlayerMover>
                 charachterTransform.localPosition.y,
                 Mathf.Clamp(charachterTransform.localPosition.z, -zBound, zBound));
 
-            if(boundaryReached == BoundarySide.BoundaryX)
+            if (boundaryReached == BoundarySide.BoundaryX)
             {
                 LevelMover.instance.offsetDir = new Vector3(0, 0, -sideSpeed * charachterTransform.localPosition.z);
             }
-            else if(boundaryReached == BoundarySide.BoundaryZ)
+            else if (boundaryReached == BoundarySide.BoundaryZ)
             {
-                LevelMover.instance.offsetDir = new Vector3(-sideSpeed* charachterTransform.localPosition.x, 0, 0)*speedModifier;
+                LevelMover.instance.offsetDir = new Vector3(-sideSpeed * charachterTransform.localPosition.x, 0, 0) * speedModifier;
             }
-            else if ((Mathf.Abs(charachterTransform.localPosition.x) > moveResistance || Mathf.Abs(charachterTransform.localPosition.z) > 0.2f))
+            else if ((Mathf.Abs(charachterTransform.localPosition.x) > moveResistance || Mathf.Abs(charachterTransform.localPosition.z) > 0.2f) && boundaryReached == BoundarySide.None)
             {
+                
                 //Debug.Log("MOVE");
                 LevelMover.instance.offsetDir = -(sideSpeed * charachterTransform.localPosition);
             }
             else
             {
-                LevelMover.instance.offsetDir = Vector3.zero;
+                LevelMover.instance.offsetDir = Vector3.zero ;
             }
+
 
             //Orientate model
             Vector3 diff = -((Camera.main.transform.position + LevelMover.instance.offsetDir * 10f) /*+ LevelMover._levelMover.offsetDir.normalized*/);
