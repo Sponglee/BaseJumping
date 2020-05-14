@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1247311384876784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -20, z: 0}
-  m_LocalScale: {x: 7.4107, y: 7.4107, z: 7.4107}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -4486,6 +4486,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4559,4 +4560,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b3b13d52743254890b63f23d479157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameRunning: 0
   speedModifier: 0.5

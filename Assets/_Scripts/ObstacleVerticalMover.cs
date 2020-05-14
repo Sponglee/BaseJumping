@@ -29,8 +29,8 @@ public class ObstacleVerticalMover : ObstacleMoverBase
         //DEBUG SPAWN
         if (!LevelMover.instance.YellowZoneBool && transform.CompareTag("Cloud"))
             LevelMover.instance.contentSpawnerRef.SpawnClouds();
-        else if (!LevelMover.instance.YellowZoneBool && transform.CompareTag("Goal"))
-            LevelMover.instance.contentSpawnerRef.SpawnGoal();
+        //else if (!LevelMover.instance.YellowZoneBool && transform.CompareTag("Goal"))
+        //    BuildingController.Instance.contentSpawnerRef.SpawnGoal();
         //Invoke spawn event in LevelMover._levelMover
     }
 

@@ -8,4 +8,7 @@ public class BuildingBlockVerticalMover : ObstacleVerticalMover
     {
         BuildingController.OnSegmentBoundary.Invoke(transform);
     }
+
+
+
 }

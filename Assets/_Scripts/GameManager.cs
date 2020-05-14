@@ -28,7 +28,7 @@ public class GameManager : Singleton<GameManager>
 
     public void GoalTriggered(GoalBehaviour triggeredGoal)
     {
-        SpawnFireWork(PlayerMover.Instance.charachterTransform.position - Vector3.up * 10f);
+        SpawnFireWork(PlayerMover.Instance.charachterTransform.position + Vector3.up * 1f);
 
         //Get goal's model component
         triggeredGoal.gameObject.transform.GetChild(0).GetComponent<Renderer>().enabled = false;
