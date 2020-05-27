@@ -75,7 +75,7 @@ public class InputCameraController : Singleton<InputCameraController>
    
     public void SetLiveCam(string name)
     {
-       
+        Debug.Log("HERE " + name);
         switch (name)
         {
             case "Speed":

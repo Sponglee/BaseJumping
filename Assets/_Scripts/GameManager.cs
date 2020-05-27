@@ -83,7 +83,7 @@ public class GameManager : Singleton<GameManager>
 
     public void SpawnEndFireWork()
     {
-        Instantiate(endFireWorksPref, PlayerMover.Instance.transform);
+        Instantiate(endFireWorksPref, Camera.main.transform);
     }
 
 

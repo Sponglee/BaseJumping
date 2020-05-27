@@ -67,7 +67,7 @@ public class PlayerMover : Singleton<PlayerMover>
                                                    inputManager.charInput.z);
 
 
-            playerOffset = targetDirection /*+ controlDirection*/;
+            playerOffset = targetDirection + controlDirection;
 
 
 

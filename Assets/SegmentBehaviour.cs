@@ -14,8 +14,8 @@ public class SegmentBehaviour : MonoBehaviour
 
             if(randomizer<=30)
                 Instantiate(balcony, spots.GetChild(Random.Range(0, spots.childCount)));
-            else
-                Instantiate(goal, spots.GetChild(Random.Range(0, spots.childCount)));
+            //else
+            //    Instantiate(goal, spots.GetChild(Random.Range(0, spots.childCount)));
 
 
         }

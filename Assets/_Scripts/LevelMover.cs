@@ -67,6 +67,7 @@ public class LevelMover : Singleton<LevelMover>
         {
             if(value != targetCam && !ParachuteBool && !PreParachuteBool)
             {
+                Debug.Log(value);
                 InputCameraController.Instance.SetLiveCam(value);
                 //toggle Trails if max speed or previous
                 trailEvent.Invoke();
@@ -188,9 +189,9 @@ public class LevelMover : Singleton<LevelMover>
         FunctionHandler.OnRunningStateChange.Invoke(false);
 
         InputCameraController.Instance.parachuteSlowCam.m_Follow.gameObject.SetActive(false);
-        
+
         //groundHolder.position = new Vector3(0,PlayerMover.Instance.charachterTransform.position.y, 0);
-        //other.transform.position += Vector3.up * 0.5f;
+        playerMover.charachterTransform.transform.position = Vector3.up * 0.5f;
     }
 
 
